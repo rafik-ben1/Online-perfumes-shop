@@ -19,8 +19,7 @@ dotenv.config()
 
 // database connection
 
-mongoose.connect(process.env.MONGO,{useNewUrlParser: true,
-  useUnifiedTopology: true,}).then(console.log('connected to database')).catch(err => console.log(err))
+mongoose.connect(process.env.MONGO).then(console.log('connected to database')).catch(err => console.log(err))
 
 app.use(cors())
 

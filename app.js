@@ -14,13 +14,13 @@ import OrderRoutes from "./Routers/OrderRouter.js"
 
 import dotenv from "dotenv";
 import errorMiddleware from './middlewares/errorMiddleware.js';
-import CustomError from './utils/CustomError.js';
+import dns from "dns" ;
 dotenv.config()
-import { setCustomDnsServer } from './dnsConfig.mjs'; // Adjust the path based on your project structure
 
-// Specify the DNS server (replace with the IP address of a reliable DNS server)
+
+
 const customDnsServer = '8.8.8.8';
-setCustomDnsServer(customDnsServer);
+dns.setServers([customDnsServer])
 // database connection
 
 mongoose.connect(process.env.MONGO).then(console.log('connected to database')).catch(err => console.log(err))

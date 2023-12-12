@@ -17,7 +17,7 @@ import errorMiddleware from './middlewares/errorMiddleware.js';
 import dns from "dns" ;
 dotenv.config()
 
-
+app.use(express.json())
 
 const customDnsServer = '8.8.8.8';
 dns.setServers([customDnsServer])
@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO).then(console.log('connected to database')).c
 
 app.use(cors())
 
-app.use(express.json())
+
 
 app.use(express.static("public"))
 

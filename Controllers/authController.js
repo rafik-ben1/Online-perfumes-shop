@@ -2,10 +2,11 @@ import User from "../Models/User.js"
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import asyncWrapper from "../utils/asyncWrapper.js"
+import CustomError from "../utils/CustomError.js"
 export const register = asyncWrapper(  async function (req,res,next){
-    console.log(req.body)
+    const {name,password} = req.body
    
-    const user = await User.create(req.body)
+    const user = await User.create({name,password})
 
     const token = await jwt.sign({id:user._id}, process.env.JWT_SECRET,{expiresIn:'2d'})
   const userDetail = {name: user.name , email : user.email}
@@ -13,22 +14,21 @@ export const register = asyncWrapper(  async function (req,res,next){
    
 })
 
-export async function login(req,res){
-    try {
+export const login = asyncWrapper(async function login(req,res){
+    
         const user = await User.findOne({email : req.body.email }).exec()
         if(!user){
-            return res.status(400).json({error: 'Invalid email'})
+            throw new CustomError("email not found!",404)
         }
         const isMatched = await bcrypt.compare(req.body.password, user.password )
         if(!isMatched){
-            return res.status(400).json({error : "wrong password!"})
+           throw new CustomError("invalid password!",400)
         }
         const token  = await jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"2d"})
      const userDetail = {name: user.name , email : user.email}
         res.status(200).json({user :{...userDetail},token })
         
-    } catch (error) {
-        res.status(500).json(error.message)
-    }
-}
+   
+    
+})
 

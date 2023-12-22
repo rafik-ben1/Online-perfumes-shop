@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 
 const multerStorage = multer.diskStorage({
     destination:(req,file,cb)=>{
-        cb(null,path.join(__dirname,`../public/uploads/${model}`) )
+        cb(null,path.join(__dirname,`../uploads`) )
     },
     filename:(req,file,cb)=>{ 
        let middlename = model === "users" ? req.user.id : req.body.title.replaceAll(" ","_")

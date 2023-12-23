@@ -1,16 +1,16 @@
 import User from "../Models/User.js"
+import { cloud } from "../index.js"
 import { toFilter, toPaginate, toSort } from "../utils/Query.js"
 import asyncWrapper from "../utils/asyncWrapper.js"
 
 export const updateProfile = asyncWrapper(async function(req,res){
-    if(req.file) req.body.avatar = `/upload/users/${req.file.filename}`
+    if(req.file) req.body.avatar = cloud(req.file.path).url
     const {name,email,password,avatar}=req.body
     
     const user = await User.findByIdAndUpdate(req.user.id,{name,email,password,avatar},{runValidators:true,new:true})
    return res.status(200).json({status:"success"})
 })
 export const createUser = asyncWrapper(async function(req,res){
-    if(req.file) req.body.avatar = req.file.filename
     const user = await User.create(req.body)
     return res.status(201).json({status:"success",user})
 })

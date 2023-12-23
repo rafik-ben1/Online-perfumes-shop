@@ -1,4 +1,5 @@
 import Brand from "../Models/Brand.js";
+import { cloud } from "../index.js";
 import CustomError from "../utils/CustomError.js";
 import { toFilter, toPaginate, toSort } from "../utils/Query.js";
 import asyncWrapper from "../utils/asyncWrapper.js";
@@ -14,9 +15,9 @@ return res.status(200).json(brands)
 })
 
 const createBrand = asyncWrapper(async function(req,res){
-  const image =req.file.path
-  console.log(req.file) 
-  const brand = await Brand.create({...req.body, image}) 
+const image = await cloud(req.file.path)
+ 
+  const brand = await Brand.create({...req.body, image:image.url}) 
   return res.status(201).json({status:"success", brand })
 })
 

@@ -1,10 +1,12 @@
 import Product from "../Models/Product.js"
+import { cloud } from "../index.js"
 import { toFilter, toPaginate, toSort } from "../utils/Query.js"
 import asyncWrapper from "../utils/asyncWrapper.js"
 
 export const createProduct = asyncWrapper(async function(req,res){
     console.log(req.body)
-    req.body.image = `/uploads/brands/${req.file.filename}`
+    const image = cloud(req.file.path)
+    req.body.image = image.url
     
     const product = await Product.create(req.body)
     return res.status(201).json({status:"success", product })

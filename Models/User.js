@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     avatar : {
         type : String
     }
-})
+},{versionKey:false})
 userSchema.pre("save", async function(){
     const salt = await bcrypt.genSalt(10)
     const hashed = await bcrypt.hash(this.password, salt )

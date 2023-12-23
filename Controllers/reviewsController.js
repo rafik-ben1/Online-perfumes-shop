@@ -9,7 +9,7 @@ const getReviews = asyncWrapper(async function(req,res){
 
     const reviews = await Review.find({product:req.params.productId})
    const rating = await Review.calculateRating(req.params.productId)
-    res.status(200).json({status: "success", rating })
+    res.status(200).json({status: "success", data:rating })
 })
 
 const updateReview = asyncWrapper(async function(req,res){
@@ -25,7 +25,7 @@ const updateReview = asyncWrapper(async function(req,res){
     await review.save()
     const data = await  review.populate({path:"author", select:"name email avatar"})
 
-    return res.status(201).json({status:"success", review:data })
+    return res.status(201).json({status:"success", data })
 })
 
 const deleteReview = asyncWrapper(async function(req,res){

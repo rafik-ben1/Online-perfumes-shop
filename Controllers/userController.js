@@ -27,5 +27,5 @@ export const getUsers = asyncWrapper(async function(req,res){
     let query = toFilter(User,queryObj)
     query= toPaginate(toSort(query,sortBy),limit,page)
     const users = await query
-    return res.status(200).json({status:"success",users})
+    return res.status(200).json({status:"success",data:users})
 })

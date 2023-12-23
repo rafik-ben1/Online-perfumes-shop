@@ -11,14 +11,14 @@ let queryObj = {...req.query}
     query = toSort(toPaginate(query,limit,page),sortBy)
     const brands = await query  
 if(!brands) throw new CustomError("no brands yet",404)
-return res.status(200).json(brands)
+return res.status(200).json({status:"success",data:brands})
 })
 
 const createBrand = asyncWrapper(async function(req,res){
 const image = await cloud(req.file.path)
  
   const brand = await Brand.create({...req.body, image:image.url}) 
-  return res.status(201).json({status:"success", brand })
+  return res.status(201).json({status:"success",data: brand })
 })
 
 export {getBrands, createBrand}

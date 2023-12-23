@@ -5,12 +5,12 @@ import asyncWrapper from "../utils/asyncWrapper.js"
 export const createOrder = asyncWrapper(async function(req,res){
     req.body.orderedBy = req.user.id;
     const order = await Order.create(req.body)
-    return res.status(201).json({status:"success",order})
+    return res.status(201).json({status:"success",data:order})
 })
 
 export const getOrders = asyncWrapper(async function(req,res){
     const orders = await Order.find()
-    return res.status(200).json({status:"success", orders})
+    return res.status(200).json({status:"success", data:orders})
 })
 
 export const getMyOrders = asyncWrapper(async function(req,res){
@@ -18,7 +18,7 @@ export const getMyOrders = asyncWrapper(async function(req,res){
     if(orders.length === 0){
         return res.status(404).json({status:"fail",message:"you are yet to order anything greedy ass fucker :)"})
     }
-    return res.status(200).json({status:"success", orders})
+    return res.status(200).json({status:"success", data:orders})
 })
 export const updateOrderStatus = asyncWrapper(async function(req,res){
     const {orderId} = req.params
@@ -31,5 +31,5 @@ export const updateOrderStatus = asyncWrapper(async function(req,res){
     }
     order.$set(req.body)
     await order.save()
-return res.status(200).json({status:"success",order})
+return res.status(200).json({status:"success",data:order})
 })

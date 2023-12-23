@@ -20,6 +20,7 @@ const ProductSchema = new mongoose.Schema({
     },
     image : {
         type : String,
+        required:true
     },
     description : {
         type : String,
@@ -39,7 +40,7 @@ const ProductSchema = new mongoose.Schema({
     default:0
   }
 }, 
-{toJSON:{virtuals:true}, toObject:{virtuals:true} }
+{toJSON:{virtuals:true}, toObject:{virtuals:true},versionKey:false }
 )
 
 

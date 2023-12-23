@@ -24,7 +24,7 @@ const reviewSchema = new mongoose.Schema({
         ref: "User",
         required:true
     }
-})
+},{versionKey:false})
 reviewSchema.statics.calculateRating = async function(id){
    
    const rating = await this.aggregate([

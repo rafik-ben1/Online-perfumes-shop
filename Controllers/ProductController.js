@@ -9,7 +9,7 @@ export const createProduct = asyncWrapper(async function(req,res){
     req.body.image = image.url
     
     const product = await Product.create(req.body)
-    return res.status(201).json({status:"success", product })
+    return res.status(201).json({status:"success",data: product })
     
 })
 

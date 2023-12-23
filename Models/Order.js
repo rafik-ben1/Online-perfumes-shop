@@ -46,7 +46,7 @@ const orderSchema = new mongoose.Schema({
         type:String,
         required:true
     }
-},{timestamps:true,toJSON:{virtuals:true},toObject:{virtuals:true}})
+},{timestamps:true,toJSON:{virtuals:true},toObject:{virtuals:true},versionKey:false})
 
 
 

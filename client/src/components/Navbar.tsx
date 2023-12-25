@@ -2,7 +2,7 @@ import { Link, NavLink, useLocation } from "react-router-dom"
 import {HiBars3, HiOutlineShoppingCart, HiOutlineUser} from "react-icons/hi2"
 import { useContext, useEffect, useState } from "react"
 import { Side } from "./Side"
-import { CartContext } from "../context/CartContext"
+import { CartContext } from "../context/CartContextProvider"
 
 
 const Navbar = () => {

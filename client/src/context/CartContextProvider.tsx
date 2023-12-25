@@ -3,24 +3,24 @@ import  { Dispatch, ReactNode, createContext, useEffect, useReducer } from 'reac
 import {  cartItem, cartReducerAction } from '../utils/types'
 import { ACTIONS } from '../utils/constants'
 
-const initialCart: cartItem[] = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
- 
 type cartContext = {
-    state : cartItem[],
-    dispatch : Dispatch<cartReducerAction>
+  state : cartItem[],
+  dispatch : Dispatch<cartReducerAction>
 }
 
+const initialCart: cartItem[] = JSON.parse(localStorage.getItem('cartItems') ?? '[]');
+ 
 function reducer (state : cartItem[] , action:cartReducerAction  ) : cartItem[] {
 switch (action.type) {
   case ACTIONS.addItem:
     
     return [...state , action.payload.item]
 case ACTIONS.removeItem:
-  return state.filter(item=> item.id !== action.payload.item.id  )
+  return state.filter(item=> item._id !== action.payload.item._id  )
  case ACTIONS.clearCart:
   return []
   case ACTIONS.updateQuantity:
-return state.map(item => item.id === action.payload.item.id ? {...item, quantity : action.payload.quantity ?? item.quantity} : item )
+return state.map(item => item._id === action.payload.item._id ? {...item, quantity : action.payload.quantity ?? item.quantity} : item )
   default:
     return state
 }

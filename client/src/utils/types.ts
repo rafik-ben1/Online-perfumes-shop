@@ -1,7 +1,4 @@
-export type cartItem  = product &{
 
-quantity : number
-}
 
 export type cartReducerAction = {
         type : string,
@@ -12,10 +9,21 @@ export type cartReducerAction = {
 }
 
 export type product = {
-    id : string,
+    _id : string,
     title : string,
     image : string,
     price : number,
     rating:number,
     totalRatings:number,
 }
+export type cartItem  = product &{
+
+    quantity : number
+    }
+
+  export  type userType  = {
+        token : string;
+       user: {email : string;
+        name: string;
+        avatar : string }
+    } | null

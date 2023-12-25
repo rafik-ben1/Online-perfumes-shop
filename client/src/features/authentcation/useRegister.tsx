@@ -1,10 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import {  register } from "../../services/authServices";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function useRegister(){
     const mutation = useMutation({
-        mutationFn:register,
+        mutationFn:async function(cred:{name:string,email:string,password:string}){
+            const {data} = await axios.post("https://orchidia-store.onrender.com",cred)
+            return data
+        },
         onSuccess:function(data){
             localStorage.setItem("token",JSON.stringify(data?.token))
             toast.success("successfuly refistered")

@@ -2,8 +2,8 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import { userType } from "../../utils/types";
-import { UserContext } from "../../context/userContextProvider";
 import { useContext } from "react";
+import {UserContext} from "../../context/UserContextProvider"
 
 export default function useLogin(){
     const {setUser} = useContext(UserContext)

@@ -1,7 +1,6 @@
-import { useState } from "react"
+import { SyntheticEvent, useState } from "react"
 import { Button } from "../components/Button"
 import Center from "../components/Center"
-import InputField from "../components/InputField"
 import { Link } from "react-router-dom"
 import useRegister from "../features/authentcation/useRegister"
 
@@ -9,8 +8,8 @@ const Register = () => {
     const [email,setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [name,setName] = useState("")
-    const {data,mutate} = useRegister()
-    function handelSubmit(e){
+    const {mutate} = useRegister()
+    function handelSubmit(e : SyntheticEvent){
         e.preventDefault()
         console.log(name,password,email)
         mutate({name,email,password})

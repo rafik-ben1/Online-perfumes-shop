@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import CartContextProvider from './context/CartContextProvider.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import UserContextProvider from './context/userContextProvider.tsx'
+import UserContextProvider from './context/UserContextProvider.tsx'
 
 const queryClient  = new QueryClient()
 

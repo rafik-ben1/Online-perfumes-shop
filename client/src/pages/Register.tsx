@@ -1,40 +1,107 @@
-import { SyntheticEvent, useState } from "react"
-import Center from "../components/Center"
-import { Link } from "react-router-dom"
-import useRegister from "../features/authentcation/useRegister"
-import { Button } from "@/components/ui/button"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
 
-const Register = () => {
-    const [email,setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [name,setName] = useState("")
-    const {mutate} = useRegister()
-    function handelSubmit(e : SyntheticEvent){
-        e.preventDefault()
-        console.log(name,password,email)
-        mutate({name,email,password})
-    }
+import { Button } from "@/components/ui/button"
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+import useRegister from "@/features/authentcation/useRegister"
+import Center from "@/components/Center"
+import { Link } from "react-router-dom"
+
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message : "please enter a valid email"
+  }),
+  password : z.string().min(8,{
+    message: "password must be at least 8 character long!",
+  }),
+  confirm: z.string()
+}).refine(data => data.password===data.confirm,{message:"passwords don't match!", path:["confirm"]})
+
+export default function Register() {
+  const {mutate} = useRegister()
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",email:"",password:"",confirm:""
+    },
+  })
+
+function onSubmit(data : z.infer<typeof formSchema>){
+mutate(data)
+}
   return (
-    <Center className="bg-stone-50"  >
-    <h2 className=" text-indigo-600 font-semibold text-xl mb-4 text-center" >Create a new account</h2>
-        
-        <form  onSubmit={handelSubmit} >
-         <div className="w-[375px] flex flex-col text-start gap-3 p-8  bg-slate-100 rounded-md " >
-         <label className=' text-slate-800 font-semibold text-md capitalize ' > name </label>
-         <input className="p-[.40rem] bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-offset-indigo-800" value={name} onChange={(e)=> setName(e.target.value)} name="email" id="email"   type="text"  />
-         <label className=' text-slate-800 font-semibold text-md capitalize ' > email </label>
-         <input className="p-[.40rem] bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-offset-indigo-800" value={email} onChange={(e)=> setEmail(e.target.value)} name="email" id="email"   type="text"  />
-         <label className=' text-slate-800 font-semibold text-md capitalize ' > password </label>
-         <input className="p-[.40rem] bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-offset-indigo-800" value={password}  onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="password" />
-         <Button>Sign up!</Button>
-    
-           <div className="flex items-center gap-2 text-sm sm:text-base  " > 
-           <p className=" text-stone-500">you don&apos;t have an account?</p><Link className=" text-indigo-900" to="/register">sign up</Link> 
-           </div>
-         </div>
-        </form>
+    <Form {...form}>
+      <Center>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 bg-slate-100 w-[375px] p-8 rounded-sm ">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>name</FormLabel>
+              <FormControl>
+                <Input placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>email</FormLabel>
+              <FormControl>
+                <Input placeholder="email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>password</FormLabel>
+              <FormControl>
+                <Input placeholder="password" {...field} />
+              </FormControl>         
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="confirm"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>confirm password</FormLabel>
+              <FormControl>
+                <Input placeholder="confirm password" {...field} />
+              </FormControl>             
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormDescription>already have an account ? log in <Link className=" font-bold " to="/login">here</Link> </FormDescription>
+        <Button >Submit</Button>
+      </form>
     </Center >
+    </Form>
   )
 }
-
-export default Register

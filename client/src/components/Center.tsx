@@ -4,7 +4,7 @@ const BaseClass = "w-full h-full fixed top-0 left-0 flex justify-center flex-col
 
 type props = {
     children : ReactNode,
-    className : string
+    className? : string
 }
 
 const Center = ({children , className}:props) => {

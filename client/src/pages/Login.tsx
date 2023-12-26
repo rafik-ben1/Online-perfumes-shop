@@ -1,9 +1,9 @@
 import { SyntheticEvent, useState } from "react"
 import Center from "../components/Center"
 import InputField from "../components/InputField"
-import { Button } from "../components/Button"
 import { Link } from "react-router-dom"
 import useLogin from "../features/authentcation/useLogin"
+import { Button } from "@/components/ui/button"
 
 const Login = () => {
     const [email,setEmail] = useState("")
@@ -26,7 +26,7 @@ const Login = () => {
         <InputField label='password' >
        <input className="p-2 bg-white rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-500" value={password}  onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="password" />
        </InputField>
-           <Button variation="primary" className='rounded-sm mt-2 '  >Sign in</Button>
+           <Button >Sign in</Button>
            {/*error && <p className="p-[0.35rem] text-sm bg-red-200 text-red-600 font-medium rounded-sm " >{error.message}</p> */}
 
        <div className="flex items-center gap-2 text-sm sm:text-base  " > 

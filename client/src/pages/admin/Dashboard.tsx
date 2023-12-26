@@ -1,7 +1,10 @@
+import { DashboardSide } from "@/components/DashboardSide"
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <main>
+      <DashboardSide/>
+    </main>
   )
 }
 

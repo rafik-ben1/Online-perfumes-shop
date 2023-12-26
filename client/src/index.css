@@ -73,4 +73,7 @@
   body {
     @apply bg-background text-foreground;
   }
+  .dashnav{
+    @apply flex items-center px-[.10rem] py-4 gap-4 font-medium rounded-md
+  }
 }

@@ -31,7 +31,7 @@ const formSchema = z.object({
 }).refine(data => data.password===data.confirm,{message:"passwords don't match!", path:["confirm"]})
 
 export default function Register() {
-  const {mutate} = useRegister()
+  const {mutate, isPending } = useRegister()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -40,20 +40,23 @@ export default function Register() {
   })
 
 function onSubmit(data : z.infer<typeof formSchema>){
-mutate(data)
+  const {email, name , password} = data
+mutate({email,name,password})
+console.log(data)
 }
   return (
     <Form {...form}>
       <Center>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 bg-slate-100 w-[375px] p-8 rounded-sm ">
+        <h2 className=" font-semibold text-xl text-slate-800 p-2" >Create a new account</h2>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 bg-stone-50 border-1  shadow-md border-slate-900 w-[375px] p-8 rounded-sm ">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input disabled={isPending} placeholder="name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -64,9 +67,9 @@ mutate(data)
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>email</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="email" {...field} />
+                <Input disabled={isPending} placeholder="email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -77,9 +80,9 @@ mutate(data)
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>password</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="password" {...field} />
+                <Input disabled={isPending} type="password" placeholder="password" {...field} />
               </FormControl>         
               <FormMessage />
             </FormItem>
@@ -90,16 +93,16 @@ mutate(data)
           name="confirm"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>confirm password</FormLabel>
+              <FormLabel>Confirm password</FormLabel>
               <FormControl>
-                <Input placeholder="confirm password" {...field} />
+                <Input disabled={isPending} placeholder="confirm password" {...field} />
               </FormControl>             
               <FormMessage />
             </FormItem>
           )}
         />
         <FormDescription>already have an account ? log in <Link className=" font-bold " to="/login">here</Link> </FormDescription>
-        <Button >Submit</Button>
+        <Button disabled={isPending} >Register</Button>
       </form>
     </Center >
     </Form>

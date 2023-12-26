@@ -1,40 +1,71 @@
-import { SyntheticEvent, useState } from "react"
+import * as z from "zod"
 import Center from "../components/Center"
-import InputField from "../components/InputField"
 import { Link } from "react-router-dom"
 import useLogin from "../features/authentcation/useLogin"
 import { Button } from "@/components/ui/button"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Form, FormControl, FormLabel, FormMessage, FormItem, FormField, FormDescription } from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
+
+const formSchema = z.object({
+  email: z.string().email(),
+  password : z.string().min(1, "please provide a password")
+ 
+})
 
 const Login = () => {
-    const [email,setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const {mutate} = useLogin()
+   
+    const {mutate, isPending} = useLogin()
+    const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+       email:"",password:""
+      },
+    })
 
-    function handelSubmit(e: SyntheticEvent){
-        e.preventDefault()
-        mutate({email,password})
+    function onSubmit(data : z.infer<typeof formSchema>){
+    mutate(data)
+    console.log(data)
     }
   return (
-    <Center className="bg-stone-50"  >
-<h2 className=" text-indigo-600 font-semibold text-xl mb-4 text-center" >Login to your account</h2>
-    
-    <form onSubmit={handelSubmit}  >
-     <div className="w-[375px] flex flex-col text-start gap-3 p-8  bg-slate-100 rounded-md " >
-      <InputField  label='email'  >
-      <input className="p-2 bg-white rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-500" value={email} onChange={(e)=> setEmail(e.target.value)} name="email" id="email"   type="text"  />
-        </InputField>
-        <InputField label='password' >
-       <input className="p-2 bg-white rounded-sm focus:outline-none focus:ring-1 focus:ring-sky-500" value={password}  onChange={(e) => setPassword(e.target.value)} name="password" id="password" type="password" />
-       </InputField>
-           <Button >Sign in</Button>
-           {/*error && <p className="p-[0.35rem] text-sm bg-red-200 text-red-600 font-medium rounded-sm " >{error.message}</p> */}
-
-       <div className="flex items-center gap-2 text-sm sm:text-base  " > 
-       <p className=" text-stone-500">you don&apos;t have an account?</p><Link className=" text-indigo-900" to="/register">sign up</Link> 
-       </div>
-     </div>
-    </form>
-</Center >
+    <Form {...form}>
+    <Center>
+      <h2 className=" font-semibold text-xl text-slate-800 p-2" >Log in to your account</h2>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 bg-stone-50 border-1  shadow-md border-slate-900 w-[375px] p-8 rounded-sm ">
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input disabled={isPending} placeholder="email" {...field} />
+            </FormControl>
+            <FormMessage/>
+          </FormItem>
+          
+        )}
+      />
+      <FormField
+        control={form.control}
+        name="password"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <FormControl>
+              <Input placeholder="password" disabled={isPending} {...field} />
+            </FormControl>
+            <FormMessage/>
+          </FormItem>
+          
+        )}
+      />
+      <FormDescription> you dont have an account ? register <Link className=" font-bold " to="/register">here</Link> </FormDescription>
+        <Button  disabled={isPending} >Login</Button>
+      </form>
+      </Center>
+      </Form>
   )
 }
 

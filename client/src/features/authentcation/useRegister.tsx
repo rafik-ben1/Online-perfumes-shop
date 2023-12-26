@@ -1,18 +1,27 @@
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import axios from "axios";
+import  { AxiosError } from "axios";
+import { userType } from "@/utils/types";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserContextProvider";
+import AXIOS from "@/utils/Axios instance";
 
 export default function useRegister(){
+    const {setUser} = useContext(UserContext)
     const mutation = useMutation({
         mutationFn:async function(cred:{name:string,email:string,password:string}){
-            const {data} = await axios.post("https://orchidia-store.onrender.com",cred)
-            return data
+            const {data} = await AXIOS.post("/auth/register",cred)
+            return data as userType
         },
         onSuccess:function(data){
-            localStorage.setItem("token",JSON.stringify(data?.token))
-            toast.success("successfuly refistered")
+            setUser(data)
+            toast.success("successfuly registered")
         },onError:function(error){
-            toast.error(error.message);
+            if(error instanceof AxiosError){
+                console.log(error)
+                toast.error(error.response?.data.message)
+                
+            }
             
         }
     })

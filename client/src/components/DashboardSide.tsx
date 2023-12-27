@@ -1,10 +1,10 @@
-import {useContext} from "react"
+import React,{useContext} from "react"
 import { Link,useLocation} from "react-router-dom"
 import {HiOutlineUser} from 'react-icons/hi2'
 import { HiOutlineArrowLeftOnRectangle } from "react-icons/hi2";
 
-import { DashboardNavs } from "@/utils/constants"
-import { UserContext } from "@/context/UserContextProvider"
+import { DashboardNavs } from "../utils/constants"
+import { UserContext } from "../context/UserContextProvider"
 export const DashboardSide = () => {
     const path = useLocation().pathname
     const {user} = useContext(UserContext)
@@ -22,7 +22,7 @@ export const DashboardSide = () => {
 
  )
     } )}
-<li className="dashnav bg-red-100 hover:bg-red-300 mt-10 ">  <span className="text-2xl" > <HiOutlineArrowLeftOnRectangle /> </span>  <Link to='/home' > Logout</Link>   </li>
+<li className="dashnav  hover:bg-red-50 mt-10 ">  <span className="text-2xl text-red-500 " > <HiOutlineArrowLeftOnRectangle /> </span>  <Link to='/home' > Logout</Link>   </li>
 </ul>
     </aside>
   )

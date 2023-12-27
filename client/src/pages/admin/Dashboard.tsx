@@ -1,10 +1,9 @@
-import { DashboardSide } from "@/components/DashboardSide"
 
 const Dashboard = () => {
   return (
-    <main>
-      <DashboardSide/>
-    </main>
+    <div>
+      dashboard
+    </div>
   )
 }
 

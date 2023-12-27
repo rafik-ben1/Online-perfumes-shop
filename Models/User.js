@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     email :{
    type: String,
    required : true ,
-   unique : true
+   unique : true,
     },
     password : {
         type : String,
@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
         default : "user"
     },
     avatar : {
-        type : String
+        type : String,
+        default : "https://res.cloudinary.com/dcn5gbxj2/image/upload/v1703619432/yuitg27vfc2xltcz9klv.jpg"
     }
 },{versionKey:false})
 userSchema.pre("save", async function(){

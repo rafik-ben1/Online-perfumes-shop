@@ -13,6 +13,7 @@ import { Products } from "./pages/admin/Products"
 import Brands from "./pages/admin/Brands"
 import Orders from "./pages/admin/Orders"
 import Users from "./pages/admin/Users"
+import DashLayout from "./pages/admin/DashLayout"
 function App() {
 
   return (
@@ -29,7 +30,7 @@ function App() {
      <Route path="/login" element={<Login/>} />
      <Route path="/register" element={<Register/>} />
  
-  <Route  path="/dashboard" element={<Dashboard/>} >
+  <Route  path="/dashboard" element={<DashLayout/>} >
      <Route index element={ <Dashboard/> } />
      <Route path="products" element={ <Products/> } />
      <Route path="brands" element={ <Brands/> } />

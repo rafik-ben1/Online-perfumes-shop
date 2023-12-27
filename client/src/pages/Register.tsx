@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import useRegister from "@/features/authentcation/useRegister"
+import {useRegister} from "@/features/authentcation/authServices"
 import Center from "@/components/Center"
 import { Link } from "react-router-dom"
 

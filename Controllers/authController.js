@@ -9,7 +9,7 @@ export const register = asyncWrapper(  async function (req,res,next){
     const user = await User.create({name,password,email})
 
     const token = await jwt.sign({id:user._id}, process.env.JWT_SECRET,{expiresIn:'2d'})
-  const userDetail = {name: user.name , email : user.email,role : user.role}
+  const userDetail = {name: user.name , email : user.email,role : user.role,avatar:user.avatar}
     res.status(201).json({user :{...userDetail},token })
    
 })
@@ -25,7 +25,7 @@ export const login = asyncWrapper(async function login(req,res){
            throw new CustomError("invalid password!",400)
         }
         const token  = await jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:"2d"})
-     const userDetail = {name: user.name , email : user.email, role : user.role}
+     const userDetail = {name: user.name , email : user.email, role : user.role,avatar:user.avatar}
         res.status(200).json({user :{...userDetail},token })
         
    

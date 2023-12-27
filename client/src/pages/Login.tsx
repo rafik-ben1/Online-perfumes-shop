@@ -1,7 +1,7 @@
 import * as z from "zod"
 import Center from "../components/Center"
 import { Link } from "react-router-dom"
-import useLogin from "../features/authentcation/useLogin"
+import {useLogin} from "../features/authentcation/authServices"
 import { Button } from "@/components/ui/button"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"

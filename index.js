@@ -22,18 +22,20 @@ import dns from "dns" ;
 import { promises } from "fs";
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(express.json())
-cloudinary.config({api_key:process.env.API_KEY,
+  cloudinary.config({api_key:process.env.API_KEY,
   api_secret:process.env.API_SECRET,
   cloud_name:process.env.CLOUD_NAME})
 
 export async function cloud (file){
-  const result = await cloudinary.uploader.upload(file, {
+  const result = await cloudinary.uploader.upload(file.path, {
       folder: 'uploads', 
-      public_id: 'custom_public_id', 
+      public_id: file.filename, 
     });
-await promises.unlink(file)
+await promises.unlink(file.path)
 return result
 
 }
@@ -49,8 +51,6 @@ app.use(cors())
 
 
 //static files
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 
 app.use("/uploads",express.static(path.join(__dirname,"uploads")))

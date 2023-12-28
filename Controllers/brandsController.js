@@ -15,7 +15,8 @@ return res.status(200).json({status:"success",data:brands})
 })
 
 const createBrand = asyncWrapper(async function(req,res){
-const image = await cloud(req.file.path)
+  console.log(req.file)
+const image = await cloud(req.file)
  
   const brand = await Brand.create({...req.body, image:image.url}) 
   return res.status(201).json({status:"success",data: brand })

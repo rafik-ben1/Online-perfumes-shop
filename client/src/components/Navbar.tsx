@@ -1,8 +1,9 @@
 import { Link, NavLink, useLocation } from "react-router-dom"
-import {HiBars3, HiOutlineShoppingCart, HiOutlineUser} from "react-icons/hi2"
+import {HiBars3, HiOutlineShoppingCart} from "react-icons/hi2"
 import { useContext, useEffect, useState } from "react"
 import { Side } from "./Side"
 import { CartContext } from "../context/CartContextProvider"
+import Avatar from "./Avatar"
 
 
 const Navbar = () => {
@@ -49,7 +50,7 @@ setOpenMenu(false)
         </Link>
     </li>
    <li>
-    <Link to="/login" className="text-2xl" > <HiOutlineUser className=" hover:text-emerald-400 transition-colors duration-200 "  /> </Link>
+    <Avatar />
    </li>
     </ul> 
       

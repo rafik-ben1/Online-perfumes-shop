@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormLabel, FormMessage, FormItem, FormField, FormDescription } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-
+import orchidia from '../../public/orchidia.png'
 const formSchema = z.object({
   email: z.string().email(),
   password : z.string().min(1, "please provide a password")
@@ -31,8 +31,9 @@ const Login = () => {
   return (
     <Form {...form}>
     <Center>
-      <h2 className=" font-semibold text-xl text-slate-800 p-2" >Log in to your account</h2>
+<img height={50} width={170} src={orchidia} alt="logo" />
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 bg-stone-50 border-1  shadow-md border-slate-900 w-[375px] p-8 rounded-sm ">
+      <p className=" text-base font-medium text-slate-800" >Welcome! enter your credentials to continue</p>
       <FormField
         control={form.control}
         name="email"

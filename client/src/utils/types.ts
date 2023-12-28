@@ -16,6 +16,12 @@ export type product = {
     rating:number,
     totalRatings:number,
 }
+export type brand = {
+    _id? : string,
+    title : string,
+    description : string,
+    image : File | string
+}
 export type cartItem  = product &{
 
     quantity : number

@@ -1,11 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
+import { userType } from './types';
 
-// Create a base Axios instance with default configuration
 const user = localStorage.getItem("user");
-const token = user ? JSON.parse(user).token : null ;
+const token : userType = user !==null ? JSON.parse(user)?.token : null;
 
  const AXIOS: AxiosInstance = axios.create({
-  baseURL: 'https://orchidia-store.onrender.com', // Set your API base URL // Set a timeout for requests in milliseconds
+  baseURL: 'https://orchidia-store.onrender.com', 
   headers: {
     'Content-Type': 'application/json',
     'authorization' : `Bearer ${token}`

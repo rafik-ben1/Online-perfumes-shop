@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogTrigger, } from "@/components/ui/dialog"
 import AddBrand from "@/features/brands/AddBrand"
+import BrandsTable from "@/features/brands/BrandsTable"
 import { HiOutlinePlus } from "react-icons/hi2"
 
 const Brands = () => {
@@ -21,6 +22,7 @@ const Brands = () => {
       <h3 className=" text-lg text-slate-700 " > All the Brands </h3>
 
     </div>
+    <BrandsTable/>
     </section>
   )
 }

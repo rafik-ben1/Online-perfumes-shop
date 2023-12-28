@@ -33,3 +33,10 @@ export type cartItem  = product &{
         name: string;
         avatar : string }
     } | null
+
+
+    export type ApiResponse <p> ={
+        status : "success" | "fail" | "error"
+        data? : p
+        message? : string
+    }

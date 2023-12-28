@@ -1,6 +1,6 @@
-import AXIOS from "@/utils/Axios instance"
-import { brand } from "@/utils/types"
-import { useMutation } from "@tanstack/react-query"
+import AXIOS, {AxiosForm} from "@/utils/Axios instance"
+import { ApiResponse, brand } from "@/utils/types"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
 
@@ -8,7 +8,7 @@ export function useAddBrand( ){
    const mutaion = useMutation({
     mutationFn : async function(cred : brand){
         console.log(cred)
-        const {data} = await AXIOS.post("/brands",cred)
+        const {data} = await AxiosForm.post("/brands",cred)
         console.log(data)
         return data
     }, onSuccess : function(data  ){
@@ -24,4 +24,13 @@ export function useAddBrand( ){
     }
    })
    return mutaion
+}
+export function useBrands(){
+    const query = useQuery({
+        queryFn: async function(){
+            const data : ApiResponse<brand[]>  =  (await AXIOS.get("/brands")).data
+            return  data.data
+        },queryKey :["brands"]
+    })
+    return query
 }

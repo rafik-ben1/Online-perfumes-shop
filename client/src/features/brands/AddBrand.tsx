@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import {Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -36,7 +36,8 @@ mutate({...data,image})
 }
   return (
     <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} >
+        <form className="w-100" onSubmit={form.handleSubmit(onSubmit)} >
+          <FormDescription className="text-center text-base " >Create a new brand</FormDescription>
           <FormField
         control={form.control}
         name="title"
@@ -66,15 +67,16 @@ mutate({...data,image})
         )}
       />
      <div>
-      <Label htmlFor="image" ></Label>
+      <Label htmlFor="image" >Image</Label>
       <Input  id="image" type="file"
        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+        setImageError("")
         if(event.target.files)
         setImage(event.target.files[0])
        }} />
        <FormMessage  >{imageError}</FormMessage>
      </div>
-<Button  > Submit </Button>
+<Button className="mt-2"  > Submit </Button>
 </form>
 </Form>
   )

@@ -1,7 +1,13 @@
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { useBrands } from './brandservices'
+import BrandTableRow from './BrandTableRow'
 
 const BrandsTable = () => {
+  const {data} = useBrands()
+  console.log(data)
   return (
+    
+    
     <Table className="border" >
     <TableHeader>
       <TableRow>
@@ -11,11 +17,7 @@ const BrandsTable = () => {
       </TableRow>
     </TableHeader>
     <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-    </TableRow>
+      {data?.map(item => <BrandTableRow brand={item} /> )}
   </TableBody>
     </Table>
   )

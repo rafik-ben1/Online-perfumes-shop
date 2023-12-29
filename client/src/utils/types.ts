@@ -15,6 +15,8 @@ export type product = {
     price : number,
     rating:number,
     totalRatings:number,
+    stock:number,
+    gender: "male" | "female" | "uni"
 }
 export type brand = {
     _id? : string,

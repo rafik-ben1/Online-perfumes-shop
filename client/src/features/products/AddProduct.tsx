@@ -53,21 +53,21 @@ const AddProduct = () => {
     <Form {...form}>
     <form className="w-100" onSubmit={form.handleSubmit(onSubmit)} >
       <FormDescription className="text-center text-base " >Create a new product</FormDescription>
-      <FormField
+      <FormField disabled={isPending}
     control={form.control}
     name="title"
     render={({ field }) => (
       <FormItem>
         <FormLabel>Product name</FormLabel>
         <FormControl>
-          <Input placeholder="name" {...field} />
+          <Input  placeholder="name" {...field} />
         </FormControl>
         <FormMessage/>
       </FormItem>
       
     )}
   />
-    <FormField
+    <FormField disabled={isPending}
     control={form.control}
     name="description"
     render={({ field }) => (
@@ -81,7 +81,7 @@ const AddProduct = () => {
 
     )}
   />
-   <FormField
+   <FormField disabled={isPending}
     control={form.control}
     name="price"
     render={({ field }) => (
@@ -95,7 +95,7 @@ const AddProduct = () => {
 
     )}
   />
-  <FormField
+  <FormField disabled={isPending}
     control={form.control}
     name="stock"
     render={({ field }) => (
@@ -109,7 +109,7 @@ const AddProduct = () => {
 
     )}
   />
-  <FormField
+  <FormField disabled={isPending}
           control={form.control}
           name="gender"
           render={({ field }) => (
@@ -131,7 +131,7 @@ const AddProduct = () => {
             </FormItem>
           )}
         />
-              <FormField
+              <FormField disabled={isPending}
           control={form.control}
           name="brand"
           render={({ field }) => (
@@ -196,7 +196,7 @@ const AddProduct = () => {
         />
      <div>
       <Label htmlFor="image" >Image</Label>
-      <Input  id="image" type="file"
+      <Input disabled={isPending}  id="image" type="file"
        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
         setImageError("")
         if(event.target.files)

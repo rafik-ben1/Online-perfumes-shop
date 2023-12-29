@@ -5,7 +5,7 @@ import asyncWrapper from "../utils/asyncWrapper.js"
 
 export const createProduct = asyncWrapper(async function(req,res){
     console.log(req.body)
-    const image = cloud(req.file)
+    const image = await cloud(req.file)
     req.body.image = image.url
     
     const product = await Product.create(req.body)

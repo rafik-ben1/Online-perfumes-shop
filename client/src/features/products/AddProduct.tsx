@@ -9,6 +9,12 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { useAddProduct } from "./productServices"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
+import { CheckIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { useBrands } from "../brands/brandservices"
+import Spinner from "@/components/Spinner"
 
 const productSchema = z.object({
     title: z.string().min(2, {
@@ -20,6 +26,7 @@ const productSchema = z.object({
     gender: z.enum(["male","female", "uni"]),
     price: z.string(),
       stock: z.string(),
+      brand : z.string().min(1,{message:"please select a brand"})
     
 })
 
@@ -27,8 +34,10 @@ const productSchema = z.object({
 const AddProduct = () => {
     const [image, setImage] = useState<File>()
     const [imageError , setImageError ] = useState("")
+    const {data} = useBrands()
     const {mutate,isPending} = useAddProduct()
 
+    console.log(data)
     const form = useForm<z.infer<typeof productSchema>>({
         resolver: zodResolver(productSchema),
         defaultValues: {
@@ -120,6 +129,70 @@ const AddProduct = () => {
                   <SelectItem value="uni">uni</SelectItem>
                 </SelectContent>
               </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+              <FormField
+          control={form.control}
+          name="brand"
+          render={({ field }) => (
+            <FormItem className="flex flex-col">
+              <FormLabel>Brand</FormLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        "w-[200px] justify-between",
+                        !field.value && "text-muted-foreground"
+                      )}
+                    >
+                      {field.value
+                        ? data?.find(
+                            (brand) => brand.title === field.value
+                          )?.title
+                        : "Select language"}
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0">
+                    {!data && <Spinner /> }
+                  <Command>
+                    <CommandInput
+                      placeholder="Search framework..."
+                      className="h-9"
+                    />
+                    <CommandEmpty>No framework found.</CommandEmpty>
+                    <CommandGroup>
+                      {data?.map((brand) => (
+                        <CommandItem
+                          value={brand._id}
+                          key={brand._id}
+                          onSelect={() => {
+                            form.setValue("brand", brand._id ?? "")
+                          }}
+                        >
+                          {brand.title}
+                          <CheckIcon
+                            className={cn(
+                              "ml-auto h-4 w-4",
+                              brand._id === field.value
+                                ? "opacity-100"
+                                : "opacity-0"
+                            )}
+                          />
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
+              <FormDescription>
+                This is the language that will be used in the dashboard.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}

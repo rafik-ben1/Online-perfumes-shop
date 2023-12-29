@@ -44,12 +44,10 @@ const AddProduct = () => {
          title:"",description:"",gender:"male"
         }})
         function onSubmit(data : z.infer<typeof productSchema> ){
-            console.log(data)
-            console.log(image)
             if(!image){
                 return setImageError("please provide an image")
                }
-               mutate({...data,image})
+               mutate({...data,stock:Number(data.stock),price:Number(data.price),image})
         }
   return (
     <Form {...form}>
@@ -162,7 +160,7 @@ const AddProduct = () => {
                     {!data && <Spinner /> }
                   <Command>
                     <CommandInput
-                      placeholder="Search framework..."
+                      placeholder="Search brand"
                       className="h-9"
                     />
                     <CommandEmpty>No framework found.</CommandEmpty>
@@ -173,6 +171,7 @@ const AddProduct = () => {
                           key={brand._id}
                           onSelect={() => {
                             form.setValue("brand", brand._id ?? "")
+                            
                           }}
                         >
                           {brand.title}
@@ -190,9 +189,7 @@ const AddProduct = () => {
                   </Command>
                 </PopoverContent>
               </Popover>
-              <FormDescription>
-                This is the language that will be used in the dashboard.
-              </FormDescription>
+              
               <FormMessage />
             </FormItem>
           )}

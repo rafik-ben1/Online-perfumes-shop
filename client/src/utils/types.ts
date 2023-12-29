@@ -9,13 +9,13 @@ export type cartReducerAction = {
 }
 
 export type product = {
-    _id : string,
+    _id? : string,
     title : string,
-    image : string,
-    price : number,
-    rating:number,
-    totalRatings:number,
-    stock:number,
+    image : string | File ,
+    price : number | string,
+    rating?:number,
+    totalRatings?:number,
+    stock:number | string ,
     gender: "male" | "female" | "uni"
 }
 export type brand = {

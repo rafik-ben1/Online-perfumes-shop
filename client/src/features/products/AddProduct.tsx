@@ -4,8 +4,11 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Label } from "@radix-ui/react-label"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { useAddProduct } from "./productServices"
 
 const productSchema = z.object({
     title: z.string().min(2, {
@@ -15,20 +18,29 @@ const productSchema = z.object({
       message: "description must be at least 30 character long!",
     }),
     gender: z.enum(["male","female", "uni"]),
-    price:z.number().min(10,{message:"price shouldnt be less than 10 bucks !"}),
-    stock : z.number(),
-    brand :z.string().min(1,{message:"please enter a categorie"})
+    price: z.string(),
+      stock: z.string(),
+    
 })
 
 
 const AddProduct = () => {
+    const [image, setImage] = useState<File>()
+    const [imageError , setImageError ] = useState("")
+    const {mutate,isPending} = useAddProduct()
+
     const form = useForm<z.infer<typeof productSchema>>({
         resolver: zodResolver(productSchema),
         defaultValues: {
          title:"",description:"",gender:"male"
         }})
-        function onSubmit(data : z.infer<typeof productSchema>){
+        function onSubmit(data : z.infer<typeof productSchema> ){
             console.log(data)
+            console.log(image)
+            if(!image){
+                return setImageError("please provide an image")
+               }
+               mutate({...data,image})
         }
   return (
     <Form {...form}>
@@ -69,7 +81,7 @@ const AddProduct = () => {
       <FormItem>
         <FormLabel>price</FormLabel>
         <FormControl>
-          <Input type="number" placeholder="price" {...field} />
+          <Input placeholder="price" {...field} />
         </FormControl>
         <FormMessage/>
       </FormItem>
@@ -83,7 +95,7 @@ const AddProduct = () => {
       <FormItem>
         <FormLabel>Stock</FormLabel>
         <FormControl>
-          <Input type="number" placeholder="stock" {...field} />
+          <Input placeholder="stock" {...field} />
         </FormControl>
         <FormMessage/>
       </FormItem>
@@ -95,7 +107,7 @@ const AddProduct = () => {
           name="gender"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Gender</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -112,6 +124,16 @@ const AddProduct = () => {
             </FormItem>
           )}
         />
+     <div>
+      <Label htmlFor="image" >Image</Label>
+      <Input  id="image" type="file"
+       onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
+        setImageError("")
+        if(event.target.files)
+        setImage(event.target.files[0])
+       }} />
+       <FormMessage  >{imageError}</FormMessage>
+     </div>
 <Button className="mt-2"  > Submit </Button>
   </form>
   </Form>

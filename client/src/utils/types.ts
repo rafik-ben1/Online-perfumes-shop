@@ -31,7 +31,9 @@ export type cartItem  = product &{
         token : string;
        user: {email : string;
         name: string;
-        avatar : string }
+        avatar : string;
+    role : "admin" | "user"
+    }
     } | null
 
 

@@ -1,10 +1,14 @@
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { useBrands } from './brandservices'
 import BrandTableRow from './BrandTableRow'
+import Spinner from '@/components/Spinner'
 
 const BrandsTable = () => {
-  const {data} = useBrands()
-  console.log(data)
+  const {data,isLoading} = useBrands()
+
+  
+if(isLoading) return <Spinner />
+ 
   return (
     
     
@@ -16,7 +20,7 @@ const BrandsTable = () => {
       </TableRow>
     </TableHeader>
     <TableBody>
-      {data?.map(item => <BrandTableRow brand={item} /> )}
+     { data?.map(item => <BrandTableRow brand={item} /> )}
   </TableBody>
     </Table>
   )

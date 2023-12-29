@@ -8,12 +8,11 @@ const BrandsTable = () => {
   return (
     
     
-    <Table className="border" >
+    <Table className="border mx-auto max-w-4xl " >
     <TableHeader>
       <TableRow>
         <TableHead className="w-[100px]">Image</TableHead>
         <TableHead>Brand Name</TableHead>
-        <TableHead>Operations</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>

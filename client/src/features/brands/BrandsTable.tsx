@@ -20,7 +20,7 @@ if(isLoading) return <Spinner />
       </TableRow>
     </TableHeader>
     <TableBody>
-     { data?.map(item => <BrandTableRow brand={item} /> )}
+     { data?.map(item => <BrandTableRow key={item._id} brand={item} /> )}
   </TableBody>
     </Table>
   )

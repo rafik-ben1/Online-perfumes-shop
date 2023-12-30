@@ -1,5 +1,5 @@
 import DashboardPageHeader from "@/components/DashboardPageHeader"
-import AddBrand from "@/features/brands/AddBrand"
+import AddBrand from "@/features/brands/AddEditBrand"
 import BrandsTable from "@/features/brands/BrandsTable"
 
 const Brands = () => {

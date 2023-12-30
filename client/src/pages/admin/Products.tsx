@@ -1,5 +1,5 @@
 import DashboardPageHeader from "@/components/DashboardPageHeader"
-import AddProduct from "@/features/products/AddProduct"
+import AddProduct from "@/features/products/AddEditProduct"
 import ProductTable from "@/features/products/ProductTable"
 
 

@@ -31,7 +31,7 @@ const productSchema = z.object({
 })
 
 
-const AddProduct = () => {
+const AddProduct = ( ) => {
     const [image, setImage] = useState<File>()
     const [imageError , setImageError ] = useState("")
     const {data} = useBrands()

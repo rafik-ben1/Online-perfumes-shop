@@ -24,14 +24,14 @@ const ProductTableRow = ({product}: {product : Product}) => {
 <DropdownMenuContent  >
 <DropdownMenuItem  > <HiOutlinePencil/> Edit  </DropdownMenuItem>
 <DropdownMenuItem  >
-  <DialogTrigger className='flex items-center' >
+  <DialogTrigger accessKey='delete' className='flex items-center' >
    <HiOutlineTrash/> Delete 
    </DialogTrigger>
    </DropdownMenuItem>
 </DropdownMenuContent>
        </DropdownMenu>
         
-<ConfirmDelete disabled={isPending} action={()=> mutate(product._id)} type='delete' />
+<ConfirmDelete accessKey='delete' disabled={isPending} action={()=> mutate(product._id)} type='delete' />
        
        </Dialog>
     </TableCell>

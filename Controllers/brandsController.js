@@ -31,4 +31,12 @@ const editBrand = asyncWrapper(async function(req,res){
   return res.status(200).json({status: "success" , data :brand})
 })
 
-export {getBrands, createBrand , editBrand}
+const deleteBrand = asyncWrapper(async function(req,res){
+  const brand = await Brand.findByIdAndDelete(req.params.id)
+  if(!brand){
+    throw new CustomError("no brand found !",404)
+  }
+  return res.status(204).json({status:"success"})
+})
+
+export {getBrands, createBrand , editBrand, deleteBrand}

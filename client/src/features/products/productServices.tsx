@@ -37,3 +37,24 @@ export const useProducts = function (){
     })
     return query
  }
+
+ export const useDeleteProduct = function (){
+    const mutation = useMutation({
+        mutationFn : async function(id:string | undefined){
+           const {data} = await  AXIOS.delete(`/products/${id}`)
+            return data.data
+        },
+        onSuccess:function(){
+            toast.success("product deleted successfuly")
+        },
+        onError(err){
+            if(err instanceof AxiosError){
+               return toast.error(err.response?.data.message)
+            }
+            else{
+                return toast.error(err.message)
+            }
+        }
+    })
+    return mutation
+ }

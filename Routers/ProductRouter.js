@@ -9,6 +9,6 @@ const upload = uploadFile("products")
 router.post("/",requireAuth,authorizeTo("admin"),upload.single("image"), createProduct )
 router.get("/",getProducts)
 router.get("/:productId",getOneProduct)
-router.delete("/id",requireAuth,authorizeTo("admin"),deleteProduct)
+router.delete("/:id",requireAuth,authorizeTo("admin"),deleteProduct)
 
 export default router;

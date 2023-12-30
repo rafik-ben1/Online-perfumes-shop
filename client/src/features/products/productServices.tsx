@@ -1,6 +1,6 @@
 import AXIOS, { AxiosForm } from "@/utils/Axios instance"
 import { Product, ProductForm} from "@/utils/types"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
 
@@ -39,12 +39,14 @@ export const useProducts = function (){
  }
 
  export const useDeleteProduct = function (){
+    const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn : async function(id:string | undefined){
            const {data} = await  AXIOS.delete(`/products/${id}`)
             return data.data
         },
         onSuccess:function(){
+            queryClient.invalidateQueries({queryKey:["products"]})
             toast.success("product deleted successfuly")
         },
         onError(err){

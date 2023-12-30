@@ -1,5 +1,6 @@
 import DashboardPageHeader from "@/components/DashboardPageHeader"
 import AddProduct from "@/features/products/AddProduct"
+import ProductTable from "@/features/products/ProductTable"
 
 
 export const Products = () => {
@@ -8,6 +9,7 @@ export const Products = () => {
      <DashboardPageHeader page="product" >
         <AddProduct />
      </DashboardPageHeader>
+     <ProductTable />
     </section>
   )
 }

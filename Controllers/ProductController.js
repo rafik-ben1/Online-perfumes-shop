@@ -38,3 +38,12 @@ export const deleteProduct = asyncWrapper(async function(req,res){
     return res.status(204).json({status : "success"})
 })
 
+export const editProduct = asyncWrapper(async function(req,res){
+    if(req.file) req.body.image =  (await cloud(req.file)).url
+    const product = await Product.findByIdAndUpdate(req.params.id , req.body, {runValidators:true ,returnDocument:true} )
+    if(!product){
+      throw new CustomError("no brand found !" , 404)
+    }
+    return res.status(200).json({status: "success" , data :product})
+})
+

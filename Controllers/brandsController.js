@@ -22,4 +22,13 @@ const image = await cloud(req.file)
   return res.status(201).json({status:"success",data: brand })
 })
 
-export {getBrands, createBrand}
+const editBrand = asyncWrapper(async function(req,res){
+  if(req.file) req.body.image =  (await cloud(req.file)).url
+  const brand = await Brand.findByIdAndUpdate(req.params.id , req.body, {runValidators:true ,returnDocument:true} )
+  if(!brand){
+    throw new CustomError("no brand found !" , 404)
+  }
+  return res.status(200).json({status: "success" , data :brand})
+})
+
+export {getBrands, createBrand , editBrand}

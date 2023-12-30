@@ -5,14 +5,15 @@ type ConfirmDeleteProps = {
     type : "delete" | "confirm",
     action : ()=> void,
     disabled : boolean,
-    accessKey : string
+    accessKey? : string
+    contextMenu? : string
 }
 
-const ConfirmDelete = ({ type,action,disabled,accessKey} : ConfirmDeleteProps ) => {
+const ConfirmDelete = ({ type,action,disabled,accessKey,contextMenu} : ConfirmDeleteProps ) => {
     const variant = type === "confirm" ? "default" : "destructive" 
   return  (
    <>
-  <DialogContent accessKey={accessKey}>
+  <DialogContent contextMenu={contextMenu} accessKey={accessKey}>
     <div className="flex flex-col gap-1" >
         <h2 className=" font-semibold text-slate-900 " > Are you sure ? </h2>
      <p className=" text-stone-400" >This action cannot be undone, click confirm to continue</p>   

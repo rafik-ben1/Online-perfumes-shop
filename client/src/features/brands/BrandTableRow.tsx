@@ -1,40 +1,44 @@
 import ConfirmDelete from "@/components/ConfirmDelete"
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent} from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { TableCell, TableRow } from "@/components/ui/table"
 import { brand } from "@/utils/types"
 import {HiOutlineEllipsisVertical , HiOutlinePencil, HiOutlineTrash } from "react-icons/hi2"
 import { useDeleteBrand } from "./brandservices"
-import AddBrand from "./AddEditBrand"
+import AddEditBrand from "./AddEditBrand"
+import { useState } from "react"
 
 const BrandTableRow = ({brand}: {brand:brand}) => {
+  const [editDialog,setEditDialog] = useState(false)
+  const [deleteDialog,setDeleteDialog] = useState(false)
   const {mutate,isPending} = useDeleteBrand()
   return (
     <TableRow>
     <TableCell>{brand.title}</TableCell>
     <TableCell>{brand.description}</TableCell>
     <TableCell> 
-      <Dialog>
+    <Dialog onOpenChange={()=>setEditDialog(false)} open={editDialog} >
+     <Dialog onOpenChange={()=>setDeleteDialog(false)} open={deleteDialog}  >
        <DropdownMenu>
 <DropdownMenuTrigger asChild >
 <Button variant="ghost" size="icon" className="text-xl" ><HiOutlineEllipsisVertical  /></Button>
 </DropdownMenuTrigger>
 <DropdownMenuContent>
-<DialogTrigger accessKey="edit"  >
-<DropdownMenuItem> <HiOutlinePencil/> Edit  </DropdownMenuItem>
-</DialogTrigger>
-<DialogTrigger accessKey="delete" asChild >
-<DropdownMenuItem> <HiOutlineTrash/> Delete  </DropdownMenuItem>
-</DialogTrigger>
+<DropdownMenuItem onClick={()=>setEditDialog(true)} > <HiOutlinePencil/> Edit  </DropdownMenuItem>
+<DropdownMenuItem onClick={()=>setDeleteDialog(true)} > <HiOutlineTrash/> Delete  </DropdownMenuItem>
 </DropdownMenuContent>
        </DropdownMenu>
-      <ConfirmDelete accessKey="delete" disabled={isPending} type="delete" action={()=> mutate(brand._id) }  />
-       <DialogContent accessKey="edit" >
-<AddBrand brand={brand} />
-       </DialogContent>
+      <ConfirmDelete  disabled={isPending} type="delete" action={()=> {
+        mutate(brand._id)
+        setDeleteDialog(false)
+         }}  />
+
        </Dialog>
-      
+       <DialogContent   >
+      <AddEditBrand brand={brand}  /> 
+      </DialogContent>
+      </Dialog>
     </TableCell>
   </TableRow>
   )

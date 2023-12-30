@@ -5,15 +5,14 @@ import { AxiosError } from "axios"
 import toast from "react-hot-toast"
 
 export function useAddProduct( ){
+    const queryClient = useQueryClient()
     const mutaion = useMutation({
      mutationFn : async function(cred : ProductForm){
-         console.log(cred)
          const {data} = await AxiosForm.post("/products",cred)
-         console.log(data)
          return data
-     }, onSuccess : function(data  ){
-         console.log(data)
-         toast.success("brand created successfuly")
+     }, onSuccess : function(){
+         toast.success("product created successfuly")
+        queryClient.invalidateQueries({queryKey:["products"]})
      }, onError: function(err){
          console.log(err)
          if(err instanceof AxiosError ){
@@ -59,4 +58,27 @@ export const useProducts = function (){
         }
     })
     return mutation
+ }
+ export function useEditProduct(){
+    const queryClient = useQueryClient()
+    const mutaion = useMutation({
+     mutationFn : async function({cred ,id}:{cred : ProductForm,id:string | undefined}){
+         console.log(cred)
+         const {data} = await AxiosForm.patch(`/products/${id}`,cred)
+         console.log(data)
+         return data
+     }, onSuccess : function(){
+         toast.success("Product edited successfuly")
+         queryClient.invalidateQueries({queryKey:["products"]})
+
+     }, onError: function(err){
+         console.log(err)
+         if(err instanceof AxiosError ){
+             return toast.error(err.response?.data?.message)
+         }else{
+             toast.error(err.message)
+         }
+     }
+    })
+    return mutaion
  }

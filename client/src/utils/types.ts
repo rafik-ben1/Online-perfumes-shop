@@ -14,6 +14,8 @@ export type Baseproduct = {
     price : number | string,
     rating?:number,
     totalRatings?:number,
+    description : string,
+    brand : string
     stock:number | string ,
     gender: "male" | "female" | "uni"
 }

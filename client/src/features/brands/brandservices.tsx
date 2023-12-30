@@ -29,6 +29,7 @@ export function useBrands(){
     const query = useQuery({
         queryFn: async function(){
             const data : ApiResponse<brand[]>  =  (await AXIOS.get("/brands")).data
+            console.log(data)
             return  data.data
         },queryKey :["brands"]
     })
@@ -59,15 +60,16 @@ export function useDeleteBrand(){
     return mutation
 }
 export function useEditBrand(){
+    const queryClient = useQueryClient()
     const mutaion = useMutation({
      mutationFn : async function({cred,id}:{cred:brand,id:string}){
          console.log(cred)
-         const {data} = await AxiosForm.patch(`/brand/${id}`,cred)
+         const {data} = await AxiosForm.patch(`/brands/${id}`,cred)
          console.log(data)
          return data
-     }, onSuccess : function(data  ){
-         console.log(data)
-         toast.success("brand created successfuly")
+     }, onSuccess : function(){
+         toast.success("brand edited successfuly")
+         queryClient.invalidateQueries({queryKey:["brands"]})
      }, onError: function(err){
          console.log(err)
          if(err instanceof AxiosError ){

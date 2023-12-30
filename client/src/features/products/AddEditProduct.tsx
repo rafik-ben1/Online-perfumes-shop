@@ -8,13 +8,14 @@ import { Label } from "@radix-ui/react-label"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
-import { useAddProduct } from "./productServices"
+import { useAddProduct, useEditProduct } from "./productServices"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command"
 import { CheckIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useBrands } from "../brands/brandservices"
 import Spinner from "@/components/Spinner"
+import { ProductForm } from "@/utils/types"
 
 const productSchema = z.object({
     title: z.string().min(2, {
@@ -31,23 +32,27 @@ const productSchema = z.object({
 })
 
 
-const AddProduct = ( ) => {
-    const [image, setImage] = useState<File>()
+const AddProduct = ( {product} : {product? : ProductForm} ) => {
+    const [image, setImage] = useState<File|string>(product?.image ?? "")
     const [imageError , setImageError ] = useState("")
     const {data} = useBrands()
     const {mutate,isPending} = useAddProduct()
-
-    console.log(data)
+     const {mutate : edit , isPending : isEditing} = useEditProduct()
     const form = useForm<z.infer<typeof productSchema>>({
         resolver: zodResolver(productSchema),
         defaultValues: {
-         title:"",description:"",gender:"male"
+         title:product?.title ,description:product?.description,
+         gender:product?.gender , stock:String(product?.stock) , price:String(product?.price) , brand:product?.brand
         }})
         function onSubmit(data : z.infer<typeof productSchema> ){
             if(!image){
                 return setImageError("please provide an image")
                }
-               mutate({...data,stock:Number(data.stock),price:Number(data.price),image})
+               if(!product){
+                mutate({...data,stock:Number(data.stock),price:Number(data.price),image})
+               }else{
+                edit({cred:{...data,stock:Number(data.stock),price:Number(data.price),image} ,id : product?._id })
+               }
         }
   return (
     <Form {...form}>
@@ -67,7 +72,7 @@ const AddProduct = ( ) => {
       
     )}
   />
-    <FormField disabled={isPending}
+    <FormField disabled={isPending || isEditing }
     control={form.control}
     name="description"
     render={({ field }) => (
@@ -81,7 +86,7 @@ const AddProduct = ( ) => {
 
     )}
   />
-   <FormField disabled={isPending}
+   <FormField disabled={isPending || isEditing }
     control={form.control}
     name="price"
     render={({ field }) => (
@@ -95,7 +100,7 @@ const AddProduct = ( ) => {
 
     )}
   />
-  <FormField disabled={isPending}
+  <FormField disabled={isPending || isEditing }
     control={form.control}
     name="stock"
     render={({ field }) => (
@@ -109,7 +114,7 @@ const AddProduct = ( ) => {
 
     )}
   />
-  <FormField disabled={isPending}
+  <FormField disabled={isPending || isEditing  }
           control={form.control}
           name="gender"
           render={({ field }) => (
@@ -131,9 +136,9 @@ const AddProduct = ( ) => {
             </FormItem>
           )}
         />
-              <FormField disabled={isPending}
+              <FormField disabled={isPending || isEditing  }
           control={form.control}
-          name="brand"
+          name="brand" defaultValue={product?.brand}
           render={({ field }) => (
             <FormItem className="flex flex-col">
               <FormLabel>Brand</FormLabel>
@@ -152,7 +157,7 @@ const AddProduct = ( ) => {
                         ? data?.find(
                             (brand) => brand.title === field.value
                           )?.title
-                        : "Select language"}
+                        : "Select brand"}
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
@@ -163,7 +168,7 @@ const AddProduct = ( ) => {
                       placeholder="Search brand"
                       className="h-9"
                     />
-                    <CommandEmpty>No framework found.</CommandEmpty>
+                    <CommandEmpty>No brand</CommandEmpty>
                     <CommandGroup>
                       {data?.map((brand) => (
                         <CommandItem
@@ -196,7 +201,7 @@ const AddProduct = ( ) => {
         />
      <div>
       <Label htmlFor="image" >Image</Label>
-      <Input disabled={isPending}  id="image" type="file"
+      <Input disabled={isPending || isEditing  }  id="image" type="file"
        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
         setImageError("")
         if(event.target.files)

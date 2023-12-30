@@ -41,7 +41,7 @@ export function useDeleteBrand(){
 
     const mutation = useMutation({
         mutationFn: async function(id : string | undefined){
-            const data = await AXIOS.delete(`/brand/${id}`)
+            const data = await AXIOS.delete(`/brands/${id}`)
             return data
         },
         onSuccess:function(){

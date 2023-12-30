@@ -19,7 +19,7 @@ const brandSchema = z.object({
 })
 
 const AddBrand = () => {
-    const {mutate} = useAddBrand()
+    const {mutate,isPending} = useAddBrand()
     const [image, setImage] = useState<File>()
     const [imageError , setImageError ] = useState("")
     const form = useForm<z.infer<typeof brandSchema>>({
@@ -38,7 +38,7 @@ mutate({...data,image})
     <Form {...form}>
         <form className="w-100" onSubmit={form.handleSubmit(onSubmit)} >
           <FormDescription className="text-center text-base " >Create a new brand</FormDescription>
-          <FormField
+          <FormField disabled={isPending}
         control={form.control}
         name="title"
         render={({ field }) => (
@@ -52,7 +52,7 @@ mutate({...data,image})
           
         )}
       />
-        <FormField
+        <FormField disabled={isPending}
         control={form.control}
         name="description"
         render={({ field }) => (
@@ -68,7 +68,7 @@ mutate({...data,image})
       />
      <div>
       <Label htmlFor="image" >Image</Label>
-      <Input  id="image" type="file"
+      <Input  id="image" type="file" disabled={isPending}
        onChange={(event: React.ChangeEvent<HTMLInputElement>)=>{
         setImageError("")
         if(event.target.files)
@@ -76,7 +76,7 @@ mutate({...data,image})
        }} />
        <FormMessage  >{imageError}</FormMessage>
      </div>
-<Button className="mt-2"  > Submit </Button>
+<Button disabled={isPending} className="mt-2"  > Submit </Button>
 </form>
 </Form>
   )

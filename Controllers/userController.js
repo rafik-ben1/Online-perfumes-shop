@@ -6,7 +6,7 @@ import asyncWrapper from "../utils/asyncWrapper.js"
 
 export const updateProfile = asyncWrapper(async function(req,res){
     if(req.file) req.body.avatar = await cloud(req.file).url
-    const {name,email,password,avatar}=req.body
+    const {name,email,avatar}=req.body
     
     const user = await User.findByIdAndUpdate(req.user.id,{name,email,password,avatar},{runValidators:true,new:true})
     if(!user){

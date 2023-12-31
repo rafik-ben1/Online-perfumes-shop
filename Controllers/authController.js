@@ -16,7 +16,7 @@ export const register = asyncWrapper(  async function (req,res,next){
 
 export const login = asyncWrapper(async function login(req,res){
     
-        const user = await User.findOne({email : req.body.email }).exec()
+        const user = await User.findOne({email : req.body.email }).select("+password").exec()
         if(!user){
             throw new CustomError("email not found!",404)
         }

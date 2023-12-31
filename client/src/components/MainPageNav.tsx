@@ -9,7 +9,7 @@ const MainPageNav = ({to,label}:MainPageNavProps) => {
     const path = useLocation().pathname
   return (
     <li  >
-     <Link className={`${to === path ? 'text-emerald-400 border-b-2 border-solid border-emerald-500 ' : ' text-neutral-700' } hover:text-emerald-400 transition-all duration-300 p-2` }  to="/">{label}</Link>
+     <Link className={`${to === path ? 'text-emerald-400 border-b-2 border-solid border-emerald-500 ' : ' text-neutral-700' } hover:text-emerald-400 transition-all duration-300 p-2` }  to={to}>{label}</Link>
     </li>
   )
 }

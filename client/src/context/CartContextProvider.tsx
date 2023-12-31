@@ -14,7 +14,7 @@ function reducer (state : cartItem[] , action:cartReducerAction  ) : cartItem[] 
 switch (action.type) {
   case ACTIONS.addItem:
     
-    return [...state , action.payload.item]
+    return [...state , {...action.payload.item}]
 case ACTIONS.removeItem:
   return state.filter(item=> item._id !== action.payload.item._id  )
  case ACTIONS.clearCart:

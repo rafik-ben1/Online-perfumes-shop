@@ -14,6 +14,14 @@ export const updateProfile = asyncWrapper(async function(req,res){
     }
    return res.status(200).json({status:"success",data:user})
 })
+export const updateUser = asyncWrapper(async function(req,res){
+    const {name,email,role} = req.body
+    const user = await User.findByIdAndUpdate(req.params.id,{name,email,role},{runValidators:true,returnDocument:true})
+    if(!user){
+        throw new CustomError("no user found",404)
+    }
+    return res.status(201).json({status:"success",data:user})
+})
 export const createUser = asyncWrapper(async function(req,res){
     const user = await User.create(req.body)
     return res.status(201).json({status:"success",user})

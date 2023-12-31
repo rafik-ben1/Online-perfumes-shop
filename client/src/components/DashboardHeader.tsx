@@ -26,7 +26,7 @@ const DashboardHeader = () => {
     <Side.content>
      <ul className="p-1 pt-3 mt-4" >
        {DashboardNavs.map(nav=> (
-        <li key={nav.to} className={` minidashnav mt-3 ${ path === nav.to ? " bg-emerald-400 text-white" : ""}`} > 
+        <li key={nav.to} className={` minidashnav mt-3 ${ path === nav.to ? " text-emerald-400 font-semibold " : " text-slate-700"}`} > 
         <span className=" text-2xl " >{<nav.icon/>}</span> 
         <Link  to={nav.to} >{nav.label}</Link>
         </li>

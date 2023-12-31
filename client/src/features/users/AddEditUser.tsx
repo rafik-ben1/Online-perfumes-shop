@@ -9,13 +9,11 @@ import { useAddUser, useEditUser } from "./userServices"
 import { Button } from "@/components/ui/button"
 
 const userSchema = z.object({
-    name: z.string().min(2, {
-        message: "Username must be at least 2 characters.",
-      }),
-      email: z.string().email({
+    name: z.string({required_error:"please provide a name"}).min(2,{message:"name must be more than 2 char long"}),
+      email: z.string({required_error:"enter your email"}).email({
         message : "please enter a valid email"
       }),
-      password : z.string().min(8,{
+      password : z.string({required_error:"provide a password please "}).min(8,{
         message: "password must be at least 8 character long!",
       }).optional(),
       role : z.enum(["user","admin"])
@@ -29,7 +27,7 @@ const AddEditUser = ({user} : {user? : User} ) => {
     const form = useForm<z.infer<typeof userSchema>>({
         resolver: zodResolver(userSchema),
         defaultValues: {
-          name:user?.name ,email:user?.email,password:user?.password,role:user?.role
+          name:user?.name ,email:user?.email,password:user?.password,role:user?.role ?? "user"
         },
       })
 
@@ -74,7 +72,7 @@ const AddEditUser = ({user} : {user? : User} ) => {
           
         )}
       />
-       <FormField disabled={isPending || isEditing || user?._id !==null } 
+    {  !user?._id && <FormField disabled={isPending || isEditing } 
         control={form.control}
         name="password"
         render={({ field }) => (
@@ -87,7 +85,7 @@ const AddEditUser = ({user} : {user? : User} ) => {
           </FormItem>
           
         )}
-      />
+      />}
        <FormField disabled={isPending || isEditing  }
           control={form.control}
           name="role"

@@ -27,7 +27,7 @@ export const createUser = asyncWrapper(async function(req,res){
     return res.status(201).json({status:"success",user})
 })
 export const deleteUser = asyncWrapper(async function(req,res){
-    const user = await findByIdAndDelete(req.params.userId)
+    const user = await User.findByIdAndDelete(req.params.userId)
     if(!user){
         return res.status(404).json({status:"fail",message:"no user found !"})
     }

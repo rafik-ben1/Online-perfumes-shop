@@ -17,7 +17,7 @@ const userSchema = z.object({
       }),
       password : z.string().min(8,{
         message: "password must be at least 8 character long!",
-      }),
+      }).optional(),
       role : z.enum(["user","admin"])
 
 })
@@ -29,11 +29,12 @@ const AddEditUser = ({user} : {user? : User} ) => {
     const form = useForm<z.infer<typeof userSchema>>({
         resolver: zodResolver(userSchema),
         defaultValues: {
-          name:user?.name ,email:user?.email,password:user?.password
+          name:user?.name ,email:user?.email,password:user?.password,role:user?.role
         },
       })
 
       function onSubmit(data : z.infer<typeof userSchema>){
+        console.log(data)
         if(!user){
            return mutate(data)
         }
@@ -73,14 +74,14 @@ const AddEditUser = ({user} : {user? : User} ) => {
           
         )}
       />
-      <FormField disabled={isPending || isEditing}
+       <FormField disabled={isPending || isEditing || user?._id !==null } 
         control={form.control}
         name="password"
         render={({ field }) => (
           <FormItem>
             <FormLabel>Password</FormLabel>
             <FormControl>
-              <Input placeholder="password" {...field} />
+              <Input type="password" placeholder="password" {...field} />
             </FormControl>
             <FormMessage/>
           </FormItem>

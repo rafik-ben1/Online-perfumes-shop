@@ -26,13 +26,17 @@ export type ProductForm = Baseproduct&{
 image : string | File
 }
 
-
-
-export type brand = {
+type Basebrand = {
     _id? : string,
     title : string,
     description : string,
+}
+
+export type BrandForm = Basebrand&{
     image : File | string
+}
+export type Brand = Basebrand&{
+    image : string
 }
 
 export type cartItem  = Product &{
@@ -40,13 +44,18 @@ export type cartItem  = Product &{
     quantity : number
     }
 
+export type User = {
+    _id? :string
+    email : string;
+    name: string;
+    avatar? : string;
+role : "admin" | "user"
+password?:string
+}
+
   export  type userType  = {
         token : string;
-       user: {email : string;
-        name: string;
-        avatar : string;
-    role : "admin" | "user"
-    }
+       user: User
     } | null
 
 

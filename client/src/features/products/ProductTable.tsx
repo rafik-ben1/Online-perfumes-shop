@@ -14,6 +14,7 @@ if(isLoading) return <Spinner />
       <TableRow>
         <TableHead className="w-[100px]">Image</TableHead>
         <TableHead>Title</TableHead>
+        <TableHead>Gender</TableHead>
         <TableHead>Price</TableHead>
         <TableHead className="text-right">Stock</TableHead>
       </TableRow>

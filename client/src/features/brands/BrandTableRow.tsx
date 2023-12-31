@@ -3,20 +3,20 @@ import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent} from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { TableCell, TableRow } from "@/components/ui/table"
-import { brand } from "@/utils/types"
+import { Brand} from "@/utils/types"
 import {HiOutlineEllipsisVertical , HiOutlinePencil, HiOutlineTrash } from "react-icons/hi2"
 import { useDeleteBrand } from "./brandservices"
 import AddEditBrand from "./AddEditBrand"
 import { useState } from "react"
 
-const BrandTableRow = ({brand}: {brand:brand}) => {
+const BrandTableRow = ({brand}: {brand:Brand}) => {
   const [editDialog,setEditDialog] = useState(false)
   const [deleteDialog,setDeleteDialog] = useState(false)
   const {mutate,isPending} = useDeleteBrand()
   return (
     <TableRow>
+    <TableCell><img src={brand.image} alt="brandlogo" /></TableCell>
     <TableCell>{brand.title}</TableCell>
-    <TableCell>{brand.description}</TableCell>
     <TableCell> 
     <Dialog onOpenChange={()=>setEditDialog(false)} open={editDialog} >
      <Dialog onOpenChange={()=>setDeleteDialog(false)} open={deleteDialog}  >

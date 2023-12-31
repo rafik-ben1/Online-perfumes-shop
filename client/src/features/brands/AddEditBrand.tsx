@@ -8,7 +8,7 @@ import * as z from "zod"
 import { useAddBrand, useEditBrand } from "./brandservices"
 import { useState } from "react"
 import { Label } from "@/components/ui/label"
-import { brand } from "@/utils/types"
+import { Brand } from "@/utils/types"
 
 const brandSchema = z.object({
     title: z.string().min(2, {
@@ -19,7 +19,7 @@ const brandSchema = z.object({
     })
 })
 
-const AddBrand = ({brand} : {brand?:brand}) => {
+const AddBrand = ({brand} : {brand?:Brand}) => {
     const {mutate,isPending} = useAddBrand()
     const {mutate : edit , isPending:isEditing} = useEditBrand()
 

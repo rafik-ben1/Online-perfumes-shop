@@ -1,18 +1,20 @@
 import AXIOS, {AxiosForm} from "@/utils/Axios instance"
-import { ApiResponse, brand } from "@/utils/types"
+import { ApiResponse, Brand, BrandForm} from "@/utils/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
 
 export function useAddBrand( ){
+    const queryClient = useQueryClient()
+
    const mutaion = useMutation({
-    mutationFn : async function(cred : brand){
+    mutationFn : async function(cred :BrandForm){
         console.log(cred)
         const {data} = await AxiosForm.post("/brands",cred)
         console.log(data)
         return data
-    }, onSuccess : function(data  ){
-        console.log(data)
+    }, onSuccess : function(){
+        queryClient.invalidateQueries({queryKey:["brands"]})
         toast.success("brand created successfuly")
     }, onError: function(err){
         console.log(err)
@@ -28,7 +30,7 @@ export function useAddBrand( ){
 export function useBrands(){
     const query = useQuery({
         queryFn: async function(){
-            const data : ApiResponse<brand[]>  =  (await AXIOS.get("/brands")).data
+            const data : ApiResponse<Brand[]>  =  (await AXIOS.get("/brands")).data
             console.log(data)
             return  data.data
         },queryKey :["brands"]
@@ -62,7 +64,7 @@ export function useDeleteBrand(){
 export function useEditBrand(){
     const queryClient = useQueryClient()
     const mutaion = useMutation({
-     mutationFn : async function({cred,id}:{cred:brand,id:string}){
+     mutationFn : async function({cred,id}:{cred:BrandForm,id:string}){
          console.log(cred)
          const {data} = await AxiosForm.patch(`/brands/${id}`,cred)
          console.log(data)

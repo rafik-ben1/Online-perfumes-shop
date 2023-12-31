@@ -15,10 +15,11 @@ const ProductTableRow = ({product}: {product : Product}) => {
 
   const {mutate,isPending} = useDeleteProduct()
   return (
-    <TableRow>
-    <TableCell className="font-medium"><img src={product.image} alt="product image" /></TableCell>
-    <TableCell>{product.title}</TableCell>
-    <TableCell>{product.price}</TableCell>
+    <TableRow className='' >
+    <TableCell ><img src={product.image} alt="product image" /></TableCell>
+    <TableCell className=' font-medium' >{product.title}</TableCell>
+    <TableCell>{product.gender}</TableCell>
+    <TableCell className=' font-semibold text-base  text-green-500 ' >{product.price}</TableCell>
     <TableCell className="text-right">{product.stock}</TableCell>
     <TableCell>
  <Dialog onOpenChange={()=>setEditDialog(false)} open={editDialog} >

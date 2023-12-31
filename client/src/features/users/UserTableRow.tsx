@@ -19,13 +19,13 @@ const UserTableRow = ({user}: {user:User}) => {
       <TableCell ><img width={40} className=" rounded-full" src={user.avatar} alt="user avatar"/></TableCell>
       <TableCell className=' font-medium' >{user.name}</TableCell>
       <TableCell>{user.email}</TableCell>
-      <TableCell className=' font-semibold text-base  ' >{user.role}</TableCell>
-      <TableCell>
+      <TableCell className=' font-semibold text-base flex items-center justify-between  ' >{user.role}
+      
    <Dialog onOpenChange={()=>setEditDialog(false)} open={editDialog} >
     <Dialog onOpenChange={()=>setDeleteDialog(false)} open={deleteDialog}  >
       <DropdownMenu>
        <DropdownMenuTrigger asChild >
-         <Button variant="ghost" size="icon" className="text-xl" ><HiOutlineEllipsisVertical /></Button>
+         <Button  variant="ghost" size="icon" className="text-xl  " ><HiOutlineEllipsisVertical /></Button>
        </DropdownMenuTrigger>
        <DropdownMenuContent  >
     

@@ -15,7 +15,7 @@ const BrandTableRow = ({brand}: {brand:Brand}) => {
   const {mutate,isPending} = useDeleteBrand()
   return (
     <TableRow>
-    <TableCell><img src={brand.image} alt="brandlogo" /></TableCell>
+    <TableCell><img width={60} src={brand.image} alt="brandlogo" /></TableCell>
     <TableCell>{brand.title}</TableCell>
     <TableCell> 
     <Dialog onOpenChange={()=>setEditDialog(false)} open={editDialog} >

@@ -16,8 +16,8 @@ const ProductTableRow = ({product}: {product : Product}) => {
   const {mutate,isPending} = useDeleteProduct()
   return (
     <TableRow className='' >
-    <TableCell ><img src={product.image} alt="product image" /></TableCell>
-    <TableCell className=' font-medium' >{product.title}</TableCell>
+    <TableCell ><img width={60} src={product.image} alt="product image" /></TableCell>
+    <TableCell className="md:font-medium text-sm sm:text-base" >{product.title}</TableCell>
     <TableCell>{product.gender}</TableCell>
     <TableCell className=' font-semibold text-base  text-green-500 ' >{product.price}</TableCell>
     <TableCell className="text-right">{product.stock}</TableCell>

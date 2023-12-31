@@ -5,7 +5,7 @@ import { DashboardNavs } from "../utils/constants"
 export const DashboardSide = () => {
     const path = useLocation().pathname
   return (
-    <aside className=" h-screen pt-2 bg-slate-50 flex flex-col w-[250px] items-start justify-center " >
+    <aside className="hidden  h-screen pt-2 bg-slate-50 md:flex flex-col w-[250px] items-start justify-center " >
 
 <ul className=" space-y-2 mt-20 w-full   " >
     {DashboardNavs.map(nav=> {

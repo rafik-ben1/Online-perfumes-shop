@@ -9,14 +9,14 @@ const ProductTable = () => {
 if(isLoading) return <Spinner />
 
   return (
-    <Table className="border max-w-5xl mx-auto " >
+    <Table className="border max-w-md md:max-w-5xl mx-auto  " >
     <TableHeader>
       <TableRow>
-        <TableHead className="w-[100px]">Image</TableHead>
+        <TableHead >Image</TableHead>
         <TableHead>Title</TableHead>
         <TableHead>Gender</TableHead>
         <TableHead>Price</TableHead>
-        <TableHead className="text-right">Stock</TableHead>
+        <TableHead >Stock</TableHead>
       </TableRow>
     </TableHeader>
     <TableBody>

@@ -9,10 +9,10 @@ const UserTable = () => {
     if(isLoading) return <Spinner />
   
   return (
-<Table className="border max-w-5xl mx-auto " >
+<Table className="border max-w-md md:max-w-5xl mx-auto " >
     <TableHeader>
       <TableRow>
-        <TableHead className="w-[100px]">Avatar</TableHead>
+        <TableHead >Avatar</TableHead>
         <TableHead>Name</TableHead>
         <TableHead>Email</TableHead>
         <TableHead>Role</TableHead>

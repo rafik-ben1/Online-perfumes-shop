@@ -1,36 +1,46 @@
 import {createPortal} from 'react-dom'
 import { HiXMark } from 'react-icons/hi2'
-import {  NavLink } from 'react-router-dom'
-import { Dispatch } from 'react'
+import { Dispatch, ReactElement, ReactNode, cloneElement, createContext, useContext, useState } from 'react'
 import { Button } from './ui/button'
 
 
-type props = {
-    open : boolean,
-    setOpenMenu : Dispatch<boolean>
+
+type SideContext = {
+    show : boolean
+    setShow : Dispatch<boolean>
+}
+const SideContext = createContext({} as SideContext )
+
+export const Side = ({children}:{children:ReactNode}) => {
+   const [show,setShow] = useState(false)
+  return  (
+    <SideContext.Provider value={{show,setShow}} >
+       {children}
+    </SideContext.Provider>
+  )
 }
 
-export const Side = ({open, setOpenMenu}:props) => {
-   
-  return createPortal (
-    <div className={`none w-full h-screen backdrop-brightness-75 opacity-0  ${open && "opacity-100 fixed top-0 " } transition-opacity duration-700   `}>
-    <aside className={`  absolute  transition-all duration-700 flex flex-col gap-3  h-screen w-[60%] bg-slate-800 `}    >
-<Button className='absolute right-0 text-white' variant="ghost" size='icon' onClick={()=>setOpenMenu(false)} > <HiXMark /> </Button>
-<ul className='flex flex-col gap-6 w-full p-2 mt-12 ml-4 '>
-    <li className='p-3' >
-        <NavLink className={({isActive}) => `  text-base font-semibold p-1 text-slate-100 ${isActive && " text-teal-400" } ` }  to='/' > Home </NavLink>
-    </li>
-    <li className='p-3' >
-        <NavLink className={({isActive}) => ` text-base font-semibold p-1 text-slate-100 ${isActive && " text-teal-400" } ` }  to='shop' > Shop </NavLink>
-    </li>
-    <li className='p-3' >
-        <NavLink className={({isActive}) => ` text-base font-semibold p-1 text-slate-100 ${isActive && " text-teal-400" } ` }  to='contact' > Contact </NavLink>
-    </li>
-    <li className='p-3' >
-        <NavLink className={({isActive}) => ` text-base font-semibold p-1 text-slate-100 ${isActive && " text-teal-400" } ` }  to='about' > About </NavLink>
-    </li>
-</ul>
-    </aside>
-    </div>
- , document.body )
+function SideTrigger({children}:{children:ReactElement}){
+const {setShow} = useContext(SideContext)
+    return(
+        cloneElement(children,{onClick:()=>setShow(true)})
+    )
 }
+
+function SideContent({children}:{children : ReactNode}){
+    const {show,setShow} = useContext(SideContext)
+    return createPortal(
+        show &&
+    <div className={`none w-full h-screen backdrop-brightness-75 opacity-0  ${show&& "opacity-100 fixed top-0 " } transition-opacity duration-700   `}>
+      <aside className={`  absolute  transition-all duration-700 flex flex-col gap-3  h-screen w-[60%] bg-white `}    >
+          <Button className='absolute right-0 text-slate-800' variant="ghost" size='icon' onClick={()=>setShow(false)} > <HiXMark /> </Button>
+        {children}
+      </aside>
+     </div>
+   ,document.body )
+}
+
+Side.trigger = SideTrigger
+Side.content = SideContent
+
+

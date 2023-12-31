@@ -71,7 +71,6 @@ export const useDeleteUser = function (){
             toast.success("user deleted successfuly")
         },
         onError(err){
-            console.log(err)
             if(err instanceof AxiosError){
                return toast.error(err.response?.data.message)
             }

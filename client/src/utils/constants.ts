@@ -17,8 +17,11 @@ export const ACTIONS = {
     {to:"/dashboard/orders", label : "Orders", icon : LiaShippingFastSolid
    },
     {to:"/dashboard/users", label : "Users", icon : HiOutlineUserGroup }
+  ]
 
-
-
-
+  export const MainPageNav = [
+    {to:"/",label:"Home"},
+    {to:"/shop",label:"Shop"},
+    {to:"/contact",label:"Contact"},
+    {to:"/about",label:"About"}
   ]

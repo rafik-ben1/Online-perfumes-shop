@@ -12,10 +12,10 @@ if(isLoading) return <Spinner />
   return (
     
     
-    <Table className="border mx-auto max-w-2xl " >
+    <Table className="border max-w-sm md:max-w-3xl mx-auto  " >
     <TableHeader>
       <TableRow>
-        <TableHead className="w-[100px]">Image</TableHead>
+        <TableHead>Image</TableHead>
         <TableHead>Brand Name</TableHead>
       </TableRow>
     </TableHeader>

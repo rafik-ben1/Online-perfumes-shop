@@ -76,4 +76,7 @@
   .dashnav{
     @apply flex items-center px-[.10rem] py-4 gap-4 font-medium rounded-md 
   }
+  .minidashnav{
+    @apply flex items-center p-2 font-normal rounded-sm text-sm
+  }
 }

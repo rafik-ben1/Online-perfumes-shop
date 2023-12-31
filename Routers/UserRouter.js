@@ -5,7 +5,7 @@ import { createUser, deleteUser, getUsers, updateProfile } from "../Controllers/
 const router = express.Router()
 const upload = uploadFile("users")
 
-router.post("/create",requireAuth,authorizeTo("admin"),createUser)
+router.post("/",requireAuth,authorizeTo("admin"),createUser)
 router.patch("/update",requireAuth,upload.single("avatar"), updateProfile )
 router.delete("/:userId",requireAuth,authorizeTo("admin"),deleteUser)
 router.get("/",requireAuth,authorizeTo("admin"),getUsers)

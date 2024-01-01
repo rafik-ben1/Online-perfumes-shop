@@ -21,6 +21,22 @@ export type Baseproduct = {
 export type Product = Baseproduct& {
 image : string
 }
+
+export type review = {
+    author :{
+        name : string
+        email : string
+        avatar : string
+    }
+    review : string
+    rating : number
+    createdAt : Date
+    product :string
+}
+
+export type SingleProduct = Product & {
+reviews : review[]
+}
 export type ProductForm = Baseproduct&{
 image : string | File
 }

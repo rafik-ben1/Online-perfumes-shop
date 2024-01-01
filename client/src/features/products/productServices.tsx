@@ -3,6 +3,7 @@ import { Product, ProductForm} from "@/utils/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
+import { useParams } from "react-router-dom"
 
 export function useAddProduct( ){
     const queryClient = useQueryClient()
@@ -78,4 +79,16 @@ export const useProducts = function (){
      }
     })
     return mutaion
+ }
+ 
+ export function useSingleProduct(){
+    const id = useParams().productId
+    const query = useQuery({
+        queryFn :async function(){
+            const data = await AXIOS.get(`/products/${id}`)
+            return data
+        },
+        queryKey:["product"]
+    })
+    return query
  }

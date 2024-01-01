@@ -14,6 +14,7 @@ import Brands from "./pages/admin/Brands"
 import Orders from "./pages/admin/Orders"
 import Users from "./pages/admin/Users"
 import DashLayout from "./pages/admin/DashLayout"
+import ProductDetails from "./pages/ProductDetails"
 function App() {
 
   return (
@@ -22,6 +23,7 @@ function App() {
  <Routes>
   <Route path="/" element={ <AppLayout/> } >
       <Route  path="shop" element={ <Shop/> } />
+       <Route path="products/:productId" element={ <ProductDetails/> } />
       <Route path="contact" element={ <Contact/> } />
       <Route path="about" element={ <About/> } />
       <Route path="cart" element={ <Cart/> } />
@@ -38,9 +40,10 @@ function App() {
      <Route path="users" element={ <Users/> } />
      <Route path="orders" element={ <Orders/> } />
   </Route>
- 
+ <Route path="*"  element={ <h2>Page not found</h2>  } />
   </Routes>
     </BrowserRouter>
+   
   )
 }
 

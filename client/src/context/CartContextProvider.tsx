@@ -26,7 +26,6 @@ switch (action.type) {
    
     return {error:"",success:"item added to cart", cart :[...state.cart , {...action.payload.item , quantity:1} ]}
 case ACTIONS.removeItem:
- 
   return {...state , cart:state.cart.filter(item=> item._id !== action.payload.item._id  )}
  case ACTIONS.clearCart:
   return {...state , cart : []}

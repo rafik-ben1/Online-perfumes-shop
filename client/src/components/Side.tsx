@@ -25,7 +25,6 @@ const {setShow} = useContext(SideContext)
     return(
         cloneElement(children,{onClick:()=>{
             setShow(true)
-        console.log("clicked")
         }})
         
 

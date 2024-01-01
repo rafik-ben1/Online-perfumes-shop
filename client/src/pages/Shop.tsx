@@ -7,7 +7,7 @@ const Shop = () => {
   if(isLoading) return <Spinner />
   return (
   <section className=" p-6 grid w-full border md:px-4 mx-auto md:grid-cols-3 grid-cols-1 gap-4 md:gap-6  lg:grid-cols-4  sm:grid-cols-2  " >
-   {data?.map(product => <ProductCard product={product} /> )}
+   {data?.map(product => <ProductCard key={product._id} product={product} /> )}
   </section>
     )
 }

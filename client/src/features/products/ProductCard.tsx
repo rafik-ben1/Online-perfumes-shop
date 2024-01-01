@@ -3,7 +3,6 @@ import { CartContext } from '@/context/CartContextProvider'
 import { ACTIONS } from '@/utils/constants'
 import { Product } from '@/utils/types'
 import { useContext } from 'react'
-import toast from 'react-hot-toast'
 import { HiOutlineShoppingCart } from 'react-icons/hi2'
 
 interface ProductCart{
@@ -12,6 +11,12 @@ interface ProductCart{
 
 const ProductCard = ({product}:ProductCart) => {
     const {dispatch} = useContext(CartContext)
+
+    function addToCart(){
+      
+         dispatch({type:ACTIONS.addItem,payload:{item:product}}) 
+        
+    }
   return (
     <div className='relative group bg-white border hover:translate-y-1 transition-transform duration-300   border-stone-100 w-[250px]  flex flex-col shadow-lg rounded-xl p-2  mb-3 mx-auto  ' >
     <img className='w-full rounded-sm m-1 h-44  object-contain ' src={product?.image} alt="product" />
@@ -20,10 +25,7 @@ const ProductCard = ({product}:ProductCart) => {
    <span className=' ml-1 flex items-center ' > Price :  <p className=' ml-1 font-semibold  text-green-500' >   {' ' + product?.price }$ </p> </span>
    
    </div>
-   <Button onClick={()=>{
-    dispatch({type:ACTIONS.addItem,payload:{item:{...product,quantity:1}}})
-    toast.success("item added to cart")}
-    } variant="ghost" size="icon" className=' rounded-full text-lg absolute top-1 right-1 group-hover:bg-emerald-400 group-hover:text-emerald-50 ' > <HiOutlineShoppingCart/> </Button>
+   <Button onClick={addToCart} variant="ghost" size="icon" className=' rounded-full text-lg absolute top-1 right-1 group-hover:bg-emerald-400 group-hover:text-emerald-50 ' > <HiOutlineShoppingCart/> </Button>
     </div>
   )
 }

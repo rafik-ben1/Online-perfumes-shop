@@ -1,12 +1,11 @@
 
 
-export type cartReducerAction = {
+export type cartReducerAction = | {
         type : string,
         payload : {
-            quantity?  : number,
-            item:cartItem
+            item:Product | cartItem
         }
-}
+} 
 
 export type Baseproduct = {
     _id? : string,

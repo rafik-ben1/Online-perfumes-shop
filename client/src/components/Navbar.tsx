@@ -33,7 +33,7 @@ const Navbar = () => {
   <ul className="flex items-center gap-8 mr-3" >
     <li className="text-2xl relative  " >
         <Link to='/cart' > <HiOutlineShoppingCart className=" relative hover:text-emerald-400 transition-colors duration-200 "  /> 
-       {cart.length !==0 &&  <span className="rounded-full text-xs absolute bottom-4 right-6 bg-red-400 text-white h-4 w-4 md:h-5 md:w-5 flex justify-center items-center  " > {cart.reduce((acc,curr)=> curr.quantity + acc , 0 )} </span> }
+       {cart.cart.length !==0 &&  <span className="rounded-full text-xs absolute bottom-4 right-6 bg-red-400 text-white h-4 w-4 md:h-5 md:w-5 flex justify-center items-center  " > {cart.cart.reduce((acc,curr)=> curr.quantity + acc , 0 )} </span> }
         
         </Link>
     </li>

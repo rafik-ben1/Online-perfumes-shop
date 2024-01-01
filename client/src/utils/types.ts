@@ -86,3 +86,8 @@ password?:string
         data? : p
         message? : string
     }
+
+    export type ReviewForm = {
+        rating : number
+        review : string
+    }

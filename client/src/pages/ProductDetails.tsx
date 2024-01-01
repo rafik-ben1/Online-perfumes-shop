@@ -9,6 +9,7 @@ import { useContext, useState } from "react"
 import { HiOutlineArrowLeft, HiOutlineShoppingCart } from "react-icons/hi2"
 import { useNavigate } from "react-router-dom"
 import { Product } from "@/utils/types"
+import AddReview from "@/features/reviews/AddReview"
 
 const ProductDetails = () => {
     const {data,isLoading} = useSingleProduct()
@@ -20,7 +21,7 @@ const ProductDetails = () => {
 <section className="p-1 flex flex-col px-1 sm:px-3 md:px-6 py-11 relative  " >
 <Button className="absolute top-[2px] left-1" onClick={()=>navigate(-1)} variant="ghost" size="icon" > <HiOutlineArrowLeft /> </Button>
 <div className=" flex flex-col justify-center gap-10 md:flex-row  " >    
- <img className=" h-[400px] w-[400px] inline lg:h-full  " src={data?.image} alt="product image" />
+ <img className=" h-[500px] w-full md:w-[400px] mx-auto   " src={data?.image} alt="product image" />
  <div className="flex flex-col gap-5 md:mt-3" >
    <h2 className=" text-2xl mb-2 text-start font-bold text-slate-700" > {data?.title} </h2>
    <h3 className="text-xl mb-1 font-semibold text-stone-700 " > Overview </h3>
@@ -44,6 +45,9 @@ const ProductDetails = () => {
                </SelectContent>
       </Select>
            <Button onClick={()=>dispatch({type:ACTIONS.addItem,payload:{item:{...data as Product ,quantity}}})} > <span className="flex items-center text-lg gap-2 "> <HiOutlineShoppingCart />Add to cart </span> </Button>
+    </div>
+    <div className="w-full mx-auto " >
+        <AddReview/>
     </div>
  </div>
 </div>

@@ -3,13 +3,14 @@ import CustomError from "../utils/CustomError.js"
 import asyncWrapper from "../utils/asyncWrapper.js"
 const createReview = asyncWrapper(async function(req,res){
     const review = await Review.create({...req.body, author:req.user.id, product:req.params.productId})
+    const rating = await Review.calculateRating(req.params.productId)
+
     return res.status(201).json({status:"success", data:review })
 })
 const getReviews = asyncWrapper(async function(req,res){
 
     const reviews = await Review.find({product:req.params.productId})
-   const rating = await Review.calculateRating(req.params.productId)
-    res.status(200).json({status: "success", data:rating })
+    res.status(200).json({status: "success", data:reviews })
 })
 
 const updateReview = asyncWrapper(async function(req,res){

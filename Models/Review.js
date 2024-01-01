@@ -26,9 +26,9 @@ const reviewSchema = new mongoose.Schema({
     }
 },{versionKey:false})
 reviewSchema.statics.calculateRating = async function(id){
-   
+   const realId = new mongoose.Types.ObjectId(id)
    const rating = await this.aggregate([
-    {$match: {product: id }},
+    {$match: {product: realId }},
     {$group:{
         _id:null,
         number : {$sum : 1},

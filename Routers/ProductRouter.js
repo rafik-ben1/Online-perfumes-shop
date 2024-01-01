@@ -2,9 +2,10 @@ import express from "express"
 import { createProduct, deleteProduct, editProduct, getOneProduct, getProducts } from "../Controllers/ProductController.js";
 import { authorizeTo, requireAuth } from "../middlewares/requireAuth.js";
 import uploadFile from "../utils/uploadFile.js";
+import ReviewRouter from "./ReviewRouter.js"
 const router = express.Router();
 
-
+router.use("/:productId/reviews",ReviewRouter)
 const upload = uploadFile("products")
 router.post("/",requireAuth,authorizeTo("admin"),upload.single("image"), createProduct )
 router.get("/",getProducts)

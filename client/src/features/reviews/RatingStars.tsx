@@ -8,15 +8,15 @@ interface RatingStarsProps {
 }
 
 const classes = {
-    small : "text-md",
+    small : "text-sm",
     big : "text-4xl"
 }
 
 const RatingStars = ({rating,setRating,type="small"}:RatingStarsProps) => {
     const baseClass = classes[type]
     const stars = Array.from({length:5} ).map((_,i)=>{
-        return rating >= i+1 ? <HiStar onClick={()=>setRating && setRating(i+1)} key={i} className={`text-yellow-300 text-4xl font-semibold ${baseClass} `}  /> :
-         <HiOutlineStar onClick={()=> setRating && setRating(i+1)}  key={i} className={`text-yellow-300 text-4xl font-semibold ${baseClass} `} />
+        return rating >= i+1 ? <HiStar onClick={()=>setRating && setRating(i+1)} key={i} className={`text-yellow-300  font-semibold ${baseClass} `}  /> :
+         <HiOutlineStar onClick={()=> setRating && setRating(i+1)}  key={i} className={`text-yellow-300  font-semibold ${baseClass} `} />
     }  )
   return (
     <>

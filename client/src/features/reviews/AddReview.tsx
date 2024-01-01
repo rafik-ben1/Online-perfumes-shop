@@ -2,7 +2,6 @@ import {FormEvent, useState } from "react"
 import RatingStars from "./RatingStars"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
 import { useAddReview } from "./reviewServises"
 
 const AddReview = () => {
@@ -27,11 +26,11 @@ const AddReview = () => {
 
   return (
 <form onSubmit={handelSubmit} className="flex flex-col justify-center text-start  gap-3 " >
-    <p className="text-slate-800 text-lg font-medium "> Add a new review </p>
- <Label>Your Rating</Label>   
+    <p className="text-slate-800 text-lg font-medium md:text-2xl "> Add a new review </p>
+ <p className="text-xl font-semibold text-slate-900" >Your Rating</p>   
 <RatingStars type="big" setRating={setRating} rating={rating} />
-<p className=" text-sm text-destructive" >{ratingError} </p>
-<Label>Your review</Label>
+<p className=" text-lg text-destructive" >{ratingError} </p>
+<p className="text-xl font-semibold text-slate-900" >Your review</p>
 <Textarea disabled={isPending} placeholder="write your review here" value={review}
  onChange={(e)=> {
     setReview(e.target.value)

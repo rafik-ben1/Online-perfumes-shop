@@ -11,7 +11,7 @@ export type Baseproduct = {
     _id? : string,
     title : string,
     price : number | string,
-    rating?:number,
+    averageRating?:number,
     totalRatings?:number,
     description : string,
     
@@ -31,7 +31,7 @@ export type review = {
     }
     review : string
     rating : number
-    createdAt : Date
+    createdAt : string
     product :string
 }
 

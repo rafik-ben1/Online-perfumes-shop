@@ -10,6 +10,7 @@ import { HiOutlineArrowLeft, HiOutlineShoppingCart } from "react-icons/hi2"
 import { useNavigate } from "react-router-dom"
 import { Product } from "@/utils/types"
 import AddReview from "@/features/reviews/AddReview"
+import AllReviews from "@/features/reviews/AllReviews"
 
 const ProductDetails = () => {
     const {data,isLoading} = useSingleProduct()
@@ -25,10 +26,10 @@ const ProductDetails = () => {
  <div className="flex flex-col gap-5 md:mt-3" >
    <h2 className=" text-2xl mb-2 text-start font-bold text-slate-700" > {data?.title} </h2>
    <h3 className="text-xl mb-1 font-semibold text-stone-700 " > Overview </h3>
-   <p className=" text-stone-400 text-sm sm:text-base" > {data?.description}</p>
+   <p className=" text-stone-400 text-lg sm:text-base" > {data?.description}</p>
    <span className="flex items-center gap-2 font-semibold text-xl mb-1 " > <h3  >Gender :</h3> <p > {data?.gender} </p>  </span>
    <span className="flex items-center gap-2 font-semibold text-xl mb-1 " > <h3  >Price :</h3> <p className="text-green-600" >  {data?.price && formatCurrency(+data.price) } </p>  </span>
-    <span className="flex items-center gap-2 font-semibold text-xl mb-1" ><h3>Rating :</h3> <p className=" text-stone-600" >{data?.rating ?? "0" + ` rated by (${data?.totalRatings})` }  </p> </span>
+    <span className="flex items-center gap-2 font-semibold text-xl mb-1" ><h3>Rating :</h3> <p className=" text-stone-600" >{data?.averageRating + ` rated by (${data?.totalRatings})` }  </p> </span>
     <div className="flex items-center gap-4 w-[150px] " > 
       <Select  onValueChange={(value)=> setQuantity(+value)} value={String(quantity)} >
              <SelectTrigger  >
@@ -46,11 +47,13 @@ const ProductDetails = () => {
       </Select>
            <Button onClick={()=>dispatch({type:ACTIONS.addItem,payload:{item:{...data as Product ,quantity}}})} > <span className="flex items-center text-lg gap-2 "> <HiOutlineShoppingCart />Add to cart </span> </Button>
     </div>
-    <div className="w-full mx-auto " >
-        <AddReview/>
-    </div>
+    
  </div>
 </div>
+<div className="w-full sm:w-[80%] md:w-[60%] ml-4 flex flex-col gap-3  " >
+        <AddReview/>
+        <AllReviews reviews={data?.reviews || [] } />
+    </div>
 </section>
     )
 }

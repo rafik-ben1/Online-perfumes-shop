@@ -1,6 +1,6 @@
 import AXIOS from "@/utils/Axios instance"
 import { ReviewForm, review } from "@/utils/types"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
 import { useParams } from "react-router-dom"
@@ -25,14 +25,15 @@ export const useAddReview = function(){
     })
     return mutation
 }
-export function useReviews(){
+/*export function useReviews(){
     const productId = useParams().productId
     const query = useQuery({
         queryKey:["reviews"],
         queryFn: async function(){
             const {data} = await AXIOS.get(`/products/${productId}/reviews`)
+            console.log(data)
             return data.data as review[]
         }
     })
     return query
-}
+}*/

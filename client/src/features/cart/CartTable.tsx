@@ -5,8 +5,10 @@ import CartTableRow from "./CartTableRow"
 
 const CartTable = () => {
   const {state} = useContext(CartContext)
+
+  if(state.cart.length===0) return <div> <h1>Your cart is Empty</h1> </div>
   return (
-    <Table className="border max-w-sm md:max-w-4xl  bg-slate-50   " >
+    <Table className="border w-full  bg-slate-50   " >
     <TableHeader>
       <TableRow>
         <TableHead >Image</TableHead>

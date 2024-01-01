@@ -12,7 +12,7 @@ const CartTableRow = ({product}:{product:cartItem}) => {
     const {dispatch} = useContext(CartContext)
   return (
    <TableRow className='' >
-     <TableCell ><img width={60} src={product.image} alt="product image" /></TableCell>
+     <TableCell ><img  width={60} src={product.image} alt="product image" /></TableCell>
      <TableCell className="md:font-medium text-sm sm:text-base" >{product.title}</TableCell>
      <TableCell>
             <Select onValueChange={(value)=>dispatch({type:ACTIONS.updateQuantity,payload:{item:{...product,quantity:Number(value)}}})}   value={String(product.quantity)} >

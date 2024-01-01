@@ -3,7 +3,7 @@
 export type cartReducerAction = | {
         type : string,
         payload : {
-            item:Product | cartItem
+            item: cartItem
         }
 } 
 
@@ -14,12 +14,13 @@ export type Baseproduct = {
     rating?:number,
     totalRatings?:number,
     description : string,
-    brand : string
+    
     stock:number | string ,
     gender: "male" | "female" | "uni"
 }
 export type Product = Baseproduct& {
 image : string
+brand : string
 }
 
 export type review = {
@@ -36,9 +37,15 @@ export type review = {
 
 export type SingleProduct = Product & {
 reviews : review[]
+brand :{
+    _id:string
+    title:string
+    image:string
+}
 }
 export type ProductForm = Baseproduct&{
 image : string | File
+brand : string
 }
 
 type Basebrand = {

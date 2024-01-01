@@ -12,14 +12,14 @@ const CartSummary = () => {
     if(state.cart.length===0) return; 
 
     return (
-    <div className="flex flex-col border bg-white p-4 rounded-md gap-3  " >
+    <div className="flex flex-col border bg-slate-100 p-4 rounded-md gap-3  " >
        <span  className=" md:text-lg font-meduim text-slate-800 flex justify-between items-center" >
         <h2 > Subtotal  </h2>
          <h2 className=" font-semibold" > {formatCurrency(total)} </h2>
         </span> 
-        <p className=" text-stone-400" >Shipping and taxes calculated at checkout.</p>
-        <Button  className="w-full" >Checkout</Button>
-        <span className="text-sm" > or <Link className=" text-blue-500" to="/shop">Continue Shopping → </Link> </span>
+        <p className=" text-stone-600" >Shipping and taxes calculated at checkout.</p>
+        <Button  >Checkout</Button>
+        <span className="text-sm mt-1" > or <Link className=" text-blue-500" to="/shop">Continue Shopping → </Link> </span>
     </div>
   )
 }

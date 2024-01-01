@@ -16,7 +16,7 @@ const ProductCard = ({product}:ProductCart) => {
 
     function addToCart(){
       
-         dispatch({type:ACTIONS.addItem,payload:{item:product}}) 
+         dispatch({type:ACTIONS.addItem,payload:{item:{...product,quantity:1}}}) 
         
     }
   return (

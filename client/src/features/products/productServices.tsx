@@ -1,5 +1,5 @@
 import AXIOS, { AxiosForm } from "@/utils/Axios instance"
-import { Product, ProductForm} from "@/utils/types"
+import { Product, ProductForm, SingleProduct} from "@/utils/types"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
@@ -86,7 +86,7 @@ export const useProducts = function (){
     const query = useQuery({
         queryFn :async function(){
             const data = await AXIOS.get(`/products/${id}`)
-            return data
+            return data.data.product as SingleProduct
         },
         queryKey:["product"]
     })

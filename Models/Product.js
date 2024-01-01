@@ -3,7 +3,8 @@ const ProductSchema = new mongoose.Schema({
     title : {
         type : String,
         required : true,
-        unique: true 
+        unique: true,
+        lowercase : true
     },
     price : {
         type: Number,
@@ -63,6 +64,7 @@ ProductSchema.virtual("reviews",{
 
 ProductSchema.pre("findOne", function(next){
     this.populate("reviews")
+    this.populate({path:"brand",select:"title image"})
     next()
 } )
 export default mongoose.model("Product", ProductSchema)

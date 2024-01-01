@@ -1,5 +1,4 @@
 import { review } from "@/utils/types"
-import RatingStars from "./RatingStars"
 
 const SingleReview = ({review}:{review:review}) => {
   return (
